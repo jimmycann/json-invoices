@@ -1,0 +1,14 @@
+<div class="file-upload">
+
+  <div ng-if="vm.uploader.isHTML5" class="upload-div">
+    <div nv-file-drop="" uploader="vm.uploader" nv-file-select="">
+      <div nv-file-over="" uploader="vm.uploader" over-class="another-file-over-class" class="well my-drop-zone">
+        <h3>Drop Invoice Here</h3>
+        <span class="small">Accepts .json files</span>
+      </div>
+    </div>
+  </div>
+
+  <input ng-if="!vm.uploader.isHTML5" type="file" nv-file-select="" name="imageUpload" uploader="vm.uploader" multiple />
+
+</div>

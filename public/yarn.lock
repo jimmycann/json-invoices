@@ -4,6 +4,10 @@ angular-animate@^1.5.6:
   version "1.5.8"
   resolved "https://registry.yarnpkg.com/angular-animate/-/angular-animate-1.5.8.tgz#535f7369225aba7fb15bf7134c71b15bc635c586"
 
+angular-file-upload:
+  version "2.3.4"
+  resolved "https://registry.yarnpkg.com/angular-file-upload/-/angular-file-upload-2.3.4.tgz#2f953d01701d6b875e2666d24184de2e8f6e14bc"
+
 angular-sanitize@^1.5.5:
   version "1.5.8"
   resolved "https://registry.yarnpkg.com/angular-sanitize/-/angular-sanitize-1.5.8.tgz#1832f69487ee820a21cbe30055a8fb1bdf297ab8"
