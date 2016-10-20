@@ -22,3 +22,7 @@ angular@^1.0.8, angular@^1.5.5:
   version "1.5.8"
   resolved "https://registry.yarnpkg.com/angular/-/angular-1.5.8.tgz#925a5392b8c212d09572dc446db7e01264e094cb"
 
+lodash:
+  version "4.16.4"
+  resolved "https://registry.yarnpkg.com/lodash/-/lodash-4.16.4.tgz#01ce306b9bad1319f2a5528674f88297aeb70127"
+

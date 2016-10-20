@@ -9,6 +9,7 @@ const compression = require('compression')
 const session = require('express-session')
 const helmet = require('helmet')
 const path = require('path')
+global.APP_ROOT = __dirname
 
 // Configuration ===========================================
 

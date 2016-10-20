@@ -1,6 +1,10 @@
-var mainRoutes = require('./main')
+'use strict'
+
+const root = require('./root')
+const upload = require('./upload')
 
 module.exports = (app, router) => {
-  mainRoutes(router)
+  root(router)
+  upload(app)
   app.use('/', router)
 }

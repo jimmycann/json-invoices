@@ -1,5 +1,6 @@
 import './style/css/main.css'
 
+import 'lodash'
 import angular from 'angular'
 import 'angular-ui-router'
 import 'angular-sanitize'
