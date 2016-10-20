@@ -1,0 +1,90 @@
+{
+  "name": "json-invoices",
+  "version": "1.0.0",
+  "main": "public/components/js/index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yjimk/node-angular-seed"
+  },
+  "bugs": {
+    "url": "https://github.com/yjimk/node-angular-seed/issues"
+  },
+  "scripts": {
+    "clean": "cross-env rm -r ./public/dist/* || true",
+    "prebuild": "npm run clean",
+    "build": "cross-env NODE_ENV='dev' webpack --progress",
+    "build:watch": "npm run build -- --watch",
+    "start": "node server.js",
+    "start:dev": "cross-env NODE_ENV='dev' nodemon server.js",
+    "test": "cross-env NODE_ENV='test' karma start",
+    "initialize": "bash initialize.sh ~/www/json-invoices"
+  },
+  "dependencies": {
+    "body-parser": "^1.15.0",
+    "compression": "^1.6.1",
+    "eslint-find-rules": "^1.14.0",
+    "express": "^4.13.4",
+    "express-session": "^1.13.0",
+    "helmet": "^2.1.0",
+    "method-override": "^2.3.5",
+    "morgan": "^1.7.0",
+    "passport-local": "^1.0.0",
+    "prerender-node": "^2.2.1"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.5.5",
+    "babel-core": "^6.8.0",
+    "babel-eslint": "^6.0.2",
+    "babel-loader": "^6.2.4",
+    "babel-preset-es2015": "^6.6.0",
+    "babel-preset-stage-2": "^6.5.0",
+    "chai": "^3.5.0",
+    "cross-env": "^1.0.8",
+    "css-loader": "^0.23.1",
+    "eslint": "^3.4.0",
+    "eslint-config-standard": "^5.3.1",
+    "eslint-plugin-jasmine": "^1.8.1",
+    "eslint-plugin-promise": "^2.0.1",
+    "eslint-plugin-standard": "^2.0.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "gulp": "^3.9.1",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-clean-css": "^2.0.8",
+    "gulp-sass": "^2.3.1",
+    "gulp-watch": "^4.3.6",
+    "jasmine-core": "^2.4.1",
+    "karma": "^0.13.22",
+    "karma-chai": "^0.1.0",
+    "karma-chrome-launcher": "^1.0.1",
+    "karma-jasmine": "^1.0.2",
+    "karma-webpack": "^1.7.0",
+    "ng-annotate-webpack-plugin": "^0.1.2",
+    "nodemon": "^1.9.1",
+    "protractor": "^3.3.0",
+    "raw-loader": "^0.5.1",
+    "style-loader": "^0.13.1",
+    "stylelint": "^7.2.0",
+    "stylelint-config-standard": "^13.0.0",
+    "webpack": "^1.13.0",
+    "webpack-dev-server": "^1.14.1"
+  },
+  "babel": {
+    "presets": [
+      "es2015",
+      "stage-0"
+    ],
+    "plugins": [
+      "transform-runtime"
+    ]
+  },
+  "keywords": [
+    "Angular",
+    "Webpack",
+    "Karma",
+    "Jasmine",
+    "Seed"
+  ],
+  "author": "Jimmy Cann",
+  "analyze": true,
+  "license": "MIT"
+}

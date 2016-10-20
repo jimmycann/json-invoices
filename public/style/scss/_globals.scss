@@ -1,0 +1,136 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto:100,300,400,700,400italic");
+
+html {
+  text-size-adjust: 100%;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: 'Roboto', sans-serif;
+  height: auto;
+  font-size: 13px;
+}
+
+h1 {
+  font-size: 3em;
+  line-height: 1.5em;
+  margin: 0;
+  font-weight: bold;
+}
+
+h2 {
+  font-size: 2.5em;
+  line-height: 1.5em;
+  margin: 0;
+  font-weight: bold;
+}
+
+h3 {
+  font-size: 2em;
+  line-height: 2em;
+  margin: 0;
+  font-weight: bold;
+}
+
+h4 {
+  font-size: 1.5em;
+  line-height: 1.5em;
+  margin: 0;
+  font-weight: bold;
+}
+
+h5 {
+  font-size: 1em;
+  line-height: 1.5em;
+  margin: 0;
+  font-weight: bold;
+}
+
+h5 .small {
+  color: grey;
+  font-size: 75%;
+}
+
+a {
+  text-decoration: none;
+}
+
+pre {
+  background: #eee;
+  font-family: 'Courier 10 Pitch', Courier, monospace;
+  font-size: 15px;
+  line-height: 1.6;
+  margin-bottom: 1.6em;
+  max-width: 100%;
+  overflow: auto;
+  padding: 1em;
+}
+
+:focus {
+  outline: none;
+}
+
+.no-gutter {
+  padding: 0;
+}
+
+.no-margin {
+  margin: 0;
+}
+
+.margin-center {
+  margin: 0 auto;
+}
+
+.no-decoration:hover {
+  text-decoration: none;
+}
+
+ui-view > div {
+  animation: fadeIn 1s;
+}
+
+[ng\:cloak],
+[ng-cloak],
+[data-ng-cloak],
+[x-ng-cloak],
+.ng-cloak,
+.x-ng-cloak {
+  display: none !important;
+}
+
+input:-webkit-autofill,
+textarea:-webkit-autofill,
+select:-webkit-autofill,
+input:-webkit-autofill:hover,
+textarea:-webkit-autofill:hover,
+select:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px white inset;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.wide-button {
+  width: 100%;
+  max-width: 300px;
+  margin: 10px auto;
+}
+
+.wide-button .md-primary {
+  width: 100%;
+  margin: 0;
+}
+
+.main {
+  min-height: 30em;
+  @include breakpoint(gtxs) {
+    padding-top: 40px;
+  }
+}

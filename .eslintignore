@@ -1,0 +1,11 @@
+webpack.config.js
+admin.webpack.config.js
+karma.conf.js
+admin.karma.conf.js
+gulpfile.js
+package.json
+nodemon.json
+.htmlhintrc
+.eslintignorerc
+assets/dist/bundle.js
+assets/admin/dist/bundle.js
