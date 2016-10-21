@@ -1,5 +1,8 @@
 'use strict'
 
+const fs = require('fs')
+const JSONStream = require('JSONStream')
+const through2 = require('through2')
 const multer = require('multer')
 const path = require('path')
 const storage = multer.diskStorage({
@@ -27,7 +30,23 @@ const upload = multer({
 
 module.exports = (app) => {
   app.post('/api/v1/upload/invoice', upload.single('file'), (req, res) => {
-    console.log(req.file)
-    res.status(204).end()
+    let json = []
+    fs.createReadStream(req.file.path)
+      .pipe(JSONStream.parse('*.products.*'))
+      .pipe(through2.obj((chunk, enc, cb) => {
+        console.log(chunk)
+        cb(null, chunk)
+      }, (cb) => {
+        json.push('end')
+        cb()
+      }
+    ))
+    .on('data', () => {
+      console.log('data')
+    })
+    .on('end', () => {
+      console.log(json)
+      res.status(204).end()
+    })
   })
 }
