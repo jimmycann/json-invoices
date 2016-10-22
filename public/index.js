@@ -12,6 +12,7 @@ if (ON_TEST) {
 }
 
 import registerConfig from './config'
+import registerSocket from './components/socket'
 import registerFilters from './components/filter'
 import registerMain from './components/main'
 import registerFileUpload from './components/file-upload'
@@ -19,6 +20,7 @@ import registerFileUpload from './components/file-upload'
 angular.module('app', [
   'app.core',
   'app.main',
+  'app.socket',
   'app.upload'
 ])
 
@@ -30,9 +32,11 @@ angular.module('app.core', [
 ])
 
 angular.module('app.main', [])
+angular.module('app.socket', [])
 angular.module('app.upload', [])
 
 registerConfig()
+registerSocket()
 registerFilters()
 registerMain()
 registerFileUpload()

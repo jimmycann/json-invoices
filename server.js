@@ -2,6 +2,7 @@
 const express = require('express')
 const app = express()
 const router = express.Router()
+const Server = require('http').Server(app)
 const r = require('rethinkdb')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
@@ -14,18 +15,20 @@ global.APP_ROOT = __dirname
 
 // Configuration ===========================================
 
+// Import API keys, port etc. that are unique to your application
+require('./.config/.env')
+// Set the port that will be used to access your application. Default is (localhost:)3000.
+const port = process.env.PORT || 3000
+const io = require('socket.io')(Server)
+io.on('connection', (client) => {})
+io.listen(3001)
+
 // Basic security
 app.use(helmet())
 // Enable GZIP compression
 app.use(compression())
 // Allow crawlers to view your site (for SEO)
 app.use(require('prerender-node'))
-
-// Import API keys, port etc. that are unique to your application
-require('./.config/.env')
-
-// Set the port that will be used to access your application. Default is (localhost:)3000.
-const port = process.env.PORT || 3000
 
 // Set session parameters
 app.set('trust proxy', 1)
