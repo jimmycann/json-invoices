@@ -20,7 +20,7 @@ export default () => {
           return vm.uploader.queue.length < 10
         }
       })
-      uploader.onAfterAddingAll = (addedFileItems) => {
+      uploader.onAfterAddingAll = () => {
         uploader.uploadAll()
       }
       uploader.onCompleteAll = () => {}

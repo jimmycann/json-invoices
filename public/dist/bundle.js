@@ -58614,7 +58614,7 @@
 	          return vm.uploader.queue.length < 10;
 	        }
 	      });
-	      uploader.onAfterAddingAll = function (addedFileItems) {
+	      uploader.onAfterAddingAll = function () {
 	        uploader.uploadAll();
 	      };
 	      uploader.onCompleteAll = function () {};
