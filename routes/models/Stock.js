@@ -12,4 +12,14 @@ const Stock = thinky.createModel('Stock', {
   pk: 'product_id'
 })
 
+Stock.changes().then((feed) => {
+  feed.each((error, doc) => {
+    if (error) {
+      console.log(error)
+      process.exit(1)
+    }
+    console.log(doc)
+  })
+})
+
 module.exports = Stock

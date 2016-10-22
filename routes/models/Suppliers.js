@@ -9,4 +9,14 @@ const Suppliers = thinky.createModel('Suppliers', {
   pk: 'supplier_id'
 })
 
+Suppliers.changes().then((feed) => {
+  feed.each((error, doc) => {
+    if (error) {
+      console.log(error)
+      process.exit(1)
+    }
+    console.log(doc)
+  })
+})
+
 module.exports = Suppliers
