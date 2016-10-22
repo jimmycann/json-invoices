@@ -2,6 +2,7 @@
 const express = require('express')
 const app = express()
 const router = express.Router()
+const r = require('rethinkdb')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const methodOverride = require('method-override')

@@ -58605,7 +58605,7 @@
 	
 	    vm.$onInit = function () {
 	      var uploader = vm.uploader = new FileUploader({
-	        url: '/api/v1/upload/invoice',
+	        url: '/api/v1/invoice/insert',
 	        removeAfterUpload: true
 	      });
 	      uploader.filters.push({

@@ -27,14 +27,32 @@ const upload = multer({
     cb(null, true)
   }
 })
+const Stock = require(path.join(global.APP_ROOT, './routes/models/Stock'))
 
 module.exports = (app) => {
-  app.post('/api/v1/upload/invoice', upload.single('file'), (req, res) => {
+  app.post('/api/v1/invoice/insert', upload.single('file'), (req, res) => {
     let json = []
     fs.createReadStream(req.file.path)
       .pipe(JSONStream.parse('*.products.*'))
       .pipe(through2.obj((chunk, enc, cb) => {
-        console.log(chunk)
+        Stock.get(chunk.product_id).run().then((stock) => {
+          stock.units = stock.units + chunk.units
+          stock.save().then((newStock) => {
+            console.log(newStock)
+          })
+        }).catch((err) => {
+          if (err.name === 'DocumentNotFoundError') {
+            Stock.save({
+              product_id: chunk.product_id,
+              product_name: chunk.product_name,
+              cost_price: chunk.unit_price,
+              sale_price: Math.round(chunk.unit_price * 1.5),
+              units: chunk.units
+            }).then((result) => {
+              console.log(result)
+            })
+          } else return res.status(500).send(err)
+        })
         cb(null, chunk)
       }, (cb) => {
         json.push('end')
@@ -46,7 +64,7 @@ module.exports = (app) => {
     })
     .on('end', () => {
       console.log(json)
-      res.status(204).end()
+      return res.status(204).end()
     })
   })
 }
