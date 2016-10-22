@@ -28,11 +28,14 @@ const Helpers = require('../helpers')
 
 module.exports = (app) => {
   app.post('/api/v1/invoice/insert', upload.single('file'), (req, res) => {
-    Helpers.processNewInvoice(req.file.path).then((result) => {
-      console.log(result)
-      res.status(200).send('success!')
-    }).catch((err) => {
-      console.log(err)
+    Helpers.findOrCreateInvoice(req.file.path).then((result) => {
+      if (result === 'DUPE') return res.status(200).send('Duplicate Invoice')
+      Helpers.processNewInvoice(req.file.path).then((result) => {
+        console.log(result)
+        res.status(200).send('success!')
+      }).catch((err) => {
+        res.status(500).send(err)
+      })
     })
   })
 }

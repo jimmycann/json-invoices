@@ -2,14 +2,14 @@ const fs = require('fs')
 const JSONStream = require('JSONStream')
 const through2 = require('through2')
 const Promise = require('bluebird')
-const async = require('async')
 const path = require('path')
 
+const Invoices = require(path.join(global.APP_ROOT, './routes/models/Invoices'))
 const Stock = require(path.join(global.APP_ROOT, './routes/models/Stock'))
+const Suppliers = require(path.join(global.APP_ROOT, './routes/models/Suppliers'))
 
 function processNewInvoice (path) {
   return new Promise((resolve, reject) => {
-    let json = []
     fs.createReadStream(path)
       .pipe(JSONStream.parse('*.products.*'))
       .pipe(through2.obj((chunk, enc, cb) => {
@@ -34,13 +34,48 @@ function processNewInvoice (path) {
           } else return reject(err)
         })
       }, () => {
-        json.push('end')
         return resolve()
       }
     ))
   })
 }
 
+function findOrCreateInvoice (path) {
+  return new Promise((resolve, reject) => {
+    fs.createReadStream(path)
+      .pipe(JSONStream.parse('*'))
+      .pipe(through2.obj((chunk, enc, cb) => {
+        Suppliers.get(chunk.supplier_id).run().catch(() => {
+          Suppliers.save({
+            supplier_id: chunk.supplier_id,
+            supplier_name: chunk.supplier_name
+          })
+        })
+        Invoices.get(chunk.invoice_number).run().then((invoice) => {
+          if (invoice.supplier_id === chunk.supplier_id) return resolve('DUPE')
+          this.createInvoice(chunk)
+        }).catch(() => {
+          this.createInvoice(chunk)
+          return resolve(chunk.invoice_number)
+        })
+      }
+    ))
+  })
+}
+
+function createInvoice (data) {
+  Invoices.save({
+    invoice_number: data.invoice_number,
+    supplier_id: data.supplier_id,
+    subtotal: 0,
+    products: data.products
+  }).then((result) => {
+    console.log(result)
+  })
+}
+
 module.exports = {
-  processNewInvoice: processNewInvoice
+  processNewInvoice: processNewInvoice,
+  findOrCreateInvoice: findOrCreateInvoice,
+  createInvoice: createInvoice
 }
