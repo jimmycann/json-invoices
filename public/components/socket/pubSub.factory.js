@@ -1,31 +1,49 @@
 'use strict'
 
 export default () => {
-  if (ON_TEST) {
-    require('./test/main.factory.test')
-  }
+  angular.module('app.socket')
+      .factory('PubSub', PubSub)
 
-  angular.module('app.main')
-      .factory('pubSubFactory', pubSubFactory)
+  const io = require('socket.io-client')
+  const socket = io.connect('http://localhost:3001')
 
-  pubSubFactory.$inject = ['socket']
+  function PubSub () {
+    let container = []
 
-  function pubSubFactory (socket) {
     return {
-      mainRoute: mainRoute
+      initialize: initialize,
+      subscribe: subscribe,
+      pushContainer: pushContainer,
+      unsubscribeAll: unsubscribeAll,
+      unsubscribe: unsubscribe
     }
-    function mainRoute (data) {
-      return $http({
-        method: 'POST',
-        url: '/api/main/test',
-        data: data
+
+    function initialize () {
+      socket.on('connect', () => {
+        console.log('User connected to socket')
       })
-      .then((res) => {
-        return res.data
+    }
+
+    function subscribe (channel, callback) {
+      console.log(channel)
+      this.pushContainer(channel)
+      return socket.on(channel, callback)
+    }
+
+    function pushContainer (subscriptionName) {
+      container.push(subscriptionName)
+    }
+
+    function unsubscribe (channel) {
+      socket.removeAllListeners(channel)
+      _.pullAt(container, channel)
+    }
+
+    function unsubscribeAll () {
+      _.each(container, (channel) => {
+        socket.removeAllListeners(channel)
       })
-      .catch((err) => {
-        return err.data
-      })
+      container = []
     }
   }
 }

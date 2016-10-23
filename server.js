@@ -15,13 +15,19 @@ global.APP_ROOT = __dirname
 
 // Configuration ===========================================
 
+const io = global.io = require('socket.io')(Server)
+io.on('connection', (socket) => {
+  console.log('New client connected to socket')
+  socket.emit('stock', 'Subscribed to the stock channel')
+  socket.emit('suppliers', 'Subscribed to the suppliers channel')
+  socket.emit('invoices', 'Subscribed to the invoices channel')
+})
+io.listen(process.env.SOCKET_PORT || 3001)
+
 // Import API keys, port etc. that are unique to your application
 require('./.config/.env')
 // Set the port that will be used to access your application. Default is (localhost:)3000.
 const port = process.env.PORT || 3000
-const io = require('socket.io')(Server)
-io.on('connection', (client) => {})
-io.listen(3001)
 
 // Basic security
 app.use(helmet())

@@ -45,7 +45,7 @@ function findOrCreateInvoice (path) {
     fs.createReadStream(path)
       .pipe(JSONStream.parse('*'))
       .pipe(through2.obj((chunk, enc, cb) => {
-        Suppliers.get(chunk.supplier_id).run().catch(() => {
+        Suppliers.get(chunk.supplier_id).run().then().catch(() => {
           Suppliers.save({
             supplier_id: chunk.supplier_id,
             supplier_name: chunk.supplier_name

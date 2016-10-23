@@ -58528,9 +58528,22 @@
 	
 	  angular.module('app.main').controller('MainController', MainController);
 	
-	  function MainController() {
+	  MainController.$inject = ['PubSub'];
+	
+	  function MainController(PubSub) {
 	    var vm = this;
-	    vm.hey = 'hello';
+	
+	    vm.$onInit = function () {
+	      PubSub.subscribe('stock', function (data) {
+	        console.log(data);
+	      });
+	      PubSub.subscribe('suppliers', function (data) {
+	        console.log(data);
+	      });
+	      PubSub.subscribe('invoices', function (data) {
+	        console.log(data);
+	      });
+	    };
 	  }
 	};
 
@@ -66284,10 +66297,15 @@
 	
 	var _socket2 = _interopRequireDefault(_socket);
 	
+	var _PubSub = __webpack_require__(76);
+	
+	var _PubSub2 = _interopRequireDefault(_PubSub);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = function () {
 	  (0, _socket2.default)();
+	  (0, _PubSub2.default)();
 	};
 
 /***/ },
@@ -66325,9 +66343,66 @@
 	});
 	
 	exports.default = function () {
-	  angular.module('app').run(function (socket) {
-	    socket;
+	  angular.module('app').run(function (PubSub) {
+	    PubSub.initialize();
 	  });
+	};
+
+/***/ },
+/* 76 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  angular.module('app.socket').factory('PubSub', PubSub);
+	
+	  var io = __webpack_require__(26);
+	  var socket = io.connect('http://localhost:3001');
+	
+	  function PubSub() {
+	    var container = [];
+	
+	    return {
+	      initialize: initialize,
+	      subscribe: subscribe,
+	      pushContainer: pushContainer,
+	      unsubscribeAll: unsubscribeAll,
+	      unsubscribe: unsubscribe
+	    };
+	
+	    function initialize() {
+	      socket.on('connect', function () {
+	        console.log('User connected to socket');
+	      });
+	    }
+	
+	    function subscribe(channel, callback) {
+	      console.log(channel);
+	      this.pushContainer(channel);
+	      return socket.on(channel, callback);
+	    }
+	
+	    function pushContainer(subscriptionName) {
+	      container.push(subscriptionName);
+	    }
+	
+	    function unsubscribe(channel) {
+	      socket.removeAllListeners(channel);
+	      _.pullAt(container, channel);
+	    }
+	
+	    function unsubscribeAll() {
+	      _.each(container, function (channel) {
+	        socket.removeAllListeners(channel);
+	      });
+	      container = [];
+	    }
+	  }
 	};
 
 /***/ }
