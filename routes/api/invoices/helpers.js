@@ -76,7 +76,7 @@ function createInvoice (data) {
 
 function fetchAll () {
   return new Promise((resolve, reject) => {
-    Invoices.run().then((invoices) => {
+    Invoices.getJoin({supplier: true}).run().then((invoices) => {
       resolve(invoices)
     }).catch((err) => {
       reject(err)
