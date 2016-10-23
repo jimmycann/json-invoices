@@ -3,7 +3,8 @@
 export default () => {
   const supplierTile = {
     bindings: {
-      props: '<'
+      props: '<',
+      index: '<'
     },
     template: require('./template.html')
   }

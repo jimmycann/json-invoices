@@ -3,7 +3,17 @@
 export default () => {
   const invoiceTile = {
     bindings: {
-      props: '<'
+      props: '<',
+      index: '<'
+    },
+    controller: function () {
+      let vm = this
+      vm.$onInit = () => {
+        vm.showProducts = false
+      }
+      vm.showProductsToggle = () => {
+        vm.showProducts = !vm.showProducts
+      }
     },
     template: require('./template.html')
   }

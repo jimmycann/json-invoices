@@ -3,7 +3,8 @@
 export default () => {
   const stockTile = {
     bindings: {
-      props: '<'
+      props: '<',
+      index: '<'
     },
     template: require('./template.html')
   }

@@ -3,7 +3,8 @@
 export default () => {
   const invoiceProductTile = {
     bindings: {
-      props: '<'
+      props: '<',
+      index: '<'
     },
     template: require('./template.html')
   }

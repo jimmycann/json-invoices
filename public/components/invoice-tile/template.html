@@ -1,7 +1,7 @@
-<div class="invoice-tile">
+<div class="invoice-tile" ng-class="$ctrl.index % 2 !== 0 ? 'even': ''">
 
   <div class="data-row">
-    <div>
+    <div ng-click="$ctrl.showProductsToggle()">
       {{$ctrl.props.invoice_number}}
     </div>
     <div>
@@ -15,7 +15,7 @@
     </div>
   </div>
 
-  <div class="products">
+  <div ng-if="$ctrl.showProducts" class="products">
 
     <div class="header">
       <h5>Product ID</h5>
@@ -26,7 +26,7 @@
     </div>
 
     <div ng-repeat="product in $ctrl.props.products">
-      <invoice-product-tile props="product"></invoice-product-tile>
+      <invoice-product-tile props="product" index="$index"></invoice-product-tile>
     </div>
   </div>
 

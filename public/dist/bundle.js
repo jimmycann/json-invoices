@@ -66514,7 +66514,7 @@
 /* 80 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"stock\">\n\n  <h2>Stock</h2>\n\n  <div class=\"header\">\n    <h5>Product ID</h5>\n    <h5>Product Name</h5>\n    <h5>Cost Price</h5>\n    <h5>Sale Price</h5>\n    <h5>Units</h5>\n  </div>\n\n  <div ng-repeat=\"product in vm.stock\">\n    <stock-tile props=\"product\"></stock-tile>\n  </div>\n\n</div>\n"
+	module.exports = "<div class=\"stock\">\n\n  <h2>Stock</h2>\n\n  <div class=\"header\">\n    <h5>Product ID</h5>\n    <h5>Product Name</h5>\n    <h5>Cost Price</h5>\n    <h5>Sale Price</h5>\n    <h5>Units</h5>\n  </div>\n\n  <div ng-repeat=\"product in vm.stock\">\n    <stock-tile props=\"product\" index=\"$index\"></stock-tile>\n  </div>\n\n</div>\n"
 
 /***/ },
 /* 81 */
@@ -66642,7 +66642,7 @@
 /* 85 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"suppliers\">\n\n  <h2>Suppliers</h2>\n\n  <div class=\"header\">\n    <h5>Supplier ID</h5>\n    <h5>Supplier Name</h5>\n  </div>\n\n  <div ng-repeat=\"supplier in vm.suppliers\">\n    <supplier-tile props=\"supplier\"></supplier-tile>\n  </div>\n\n</div>\n"
+	module.exports = "<div class=\"suppliers\">\n\n  <h2>Suppliers</h2>\n\n  <div class=\"header\">\n    <h5>Supplier ID</h5>\n    <h5>Supplier Name</h5>\n  </div>\n\n  <div ng-repeat=\"supplier in vm.suppliers\">\n    <supplier-tile props=\"supplier\" index=\"$index\"></supplier-tile>\n  </div>\n\n</div>\n"
 
 /***/ },
 /* 86 */
@@ -66769,7 +66769,7 @@
 /* 90 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"invoices\">\n\n  <h2>Invoices</h2>\n\n  <div class=\"header\">\n    <h5>Invoice Number</h5>\n    <h5>Number of Products</h5>\n    <h5>Supplier</h5>\n    <h5>Total</h5>\n  </div>\n\n  <div ng-repeat=\"invoice in vm.invoices\">\n    <invoice-tile props=\"invoice\"></invoice-tile>\n  </div>\n\n</div>\n"
+	module.exports = "<div class=\"invoices\">\n\n  <h2>Invoices</h2>\n\n  <div class=\"header\">\n    <h5>Invoice Number</h5>\n    <h5>Number of Products</h5>\n    <h5>Supplier</h5>\n    <h5>Total</h5>\n  </div>\n\n  <div ng-repeat=\"invoice in vm.invoices\">\n    <invoice-tile props=\"invoice\" index=\"$index\"></invoice-tile>\n  </div>\n\n</div>\n"
 
 /***/ },
 /* 91 */
@@ -66837,7 +66837,8 @@
 	exports.default = function () {
 	  var stockTile = {
 	    bindings: {
-	      props: '<'
+	      props: '<',
+	      index: '<'
 	    },
 	    template: __webpack_require__(94)
 	  };
@@ -66848,7 +66849,7 @@
 /* 94 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"stock-tile\">\n\n  <div class=\"data-row\">\n    <div>\n      {{$ctrl.props.product_id}}\n    </div>\n    <div>\n      {{$ctrl.props.product_name}}\n    </div>\n    <div>\n      {{$ctrl.props.cost_price | currency : '$'}}\n    </div>\n    <div>\n      {{$ctrl.props.sale_price | currency : '$'}}\n    </div>\n    <div>\n      {{$ctrl.props.units}}\n    </div>\n  </div>\n\n</div>\n"
+	module.exports = "<div class=\"stock-tile\" ng-class=\"$ctrl.index % 2 !== 0 ? 'even': ''\">\n\n  <div class=\"data-row\">\n    <div>\n      {{$ctrl.props.product_id}}\n    </div>\n    <div>\n      {{$ctrl.props.product_name}}\n    </div>\n    <div>\n      {{$ctrl.props.cost_price | currency : '$'}}\n    </div>\n    <div>\n      {{$ctrl.props.sale_price | currency : '$'}}\n    </div>\n    <div>\n      {{$ctrl.props.units}}\n    </div>\n  </div>\n\n</div>\n"
 
 /***/ },
 /* 95 */
@@ -66883,7 +66884,8 @@
 	exports.default = function () {
 	  var supplierTile = {
 	    bindings: {
-	      props: '<'
+	      props: '<',
+	      index: '<'
 	    },
 	    template: __webpack_require__(97)
 	  };
@@ -66894,7 +66896,7 @@
 /* 97 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"supplier-tile\">\n\n  <div class=\"data-row\">\n    <div>\n      {{$ctrl.props.supplier_id}}\n    </div>\n    <div>\n      {{$ctrl.props.supplier_name}}\n    </div>\n  </div>\n\n</div>\n"
+	module.exports = "<div class=\"supplier-tile\" ng-class=\"$ctrl.index % 2 !== 0 ? 'even': ''\">\n\n  <div class=\"data-row\">\n    <div>\n      {{$ctrl.props.supplier_id}}\n    </div>\n    <div>\n      {{$ctrl.props.supplier_name}}\n    </div>\n  </div>\n\n</div>\n"
 
 /***/ },
 /* 98 */
@@ -66929,7 +66931,17 @@
 	exports.default = function () {
 	  var invoiceTile = {
 	    bindings: {
-	      props: '<'
+	      props: '<',
+	      index: '<'
+	    },
+	    controller: function controller() {
+	      var vm = this;
+	      vm.$onInit = function () {
+	        vm.showProducts = false;
+	      };
+	      vm.showProductsToggle = function () {
+	        vm.showProducts = !vm.showProducts;
+	      };
 	    },
 	    template: __webpack_require__(100)
 	  };
@@ -66940,7 +66952,7 @@
 /* 100 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"invoice-tile\">\n\n  <div class=\"data-row\">\n    <div>\n      {{$ctrl.props.invoice_number}}\n    </div>\n    <div>\n      {{$ctrl.props.products.length}}\n    </div>\n    <div>\n      {{$ctrl.props.supplier.supplier_name}}\n    </div>\n    <div>\n      {{$ctrl.props.subtotal | currency : '$'}}\n    </div>\n  </div>\n\n  <div class=\"products\">\n\n    <div class=\"header\">\n      <h5>Product ID</h5>\n      <h5>Product Name</h5>\n      <h5>Units</h5>\n      <h5>Unit Price</h5>\n      <h5>Total</h5>\n    </div>\n\n    <div ng-repeat=\"product in $ctrl.props.products\">\n      <invoice-product-tile props=\"product\"></invoice-product-tile>\n    </div>\n  </div>\n\n</div>\n"
+	module.exports = "<div class=\"invoice-tile\" ng-class=\"$ctrl.index % 2 !== 0 ? 'even': ''\">\n\n  <div class=\"data-row\">\n    <div ng-click=\"$ctrl.showProductsToggle()\">\n      {{$ctrl.props.invoice_number}}\n    </div>\n    <div>\n      {{$ctrl.props.products.length}}\n    </div>\n    <div>\n      {{$ctrl.props.supplier.supplier_name}}\n    </div>\n    <div>\n      {{$ctrl.props.subtotal | currency : '$'}}\n    </div>\n  </div>\n\n  <div ng-if=\"$ctrl.showProducts\" class=\"products\">\n\n    <div class=\"header\">\n      <h5>Product ID</h5>\n      <h5>Product Name</h5>\n      <h5>Units</h5>\n      <h5>Unit Price</h5>\n      <h5>Total</h5>\n    </div>\n\n    <div ng-repeat=\"product in $ctrl.props.products\">\n      <invoice-product-tile props=\"product\" index=\"$index\"></invoice-product-tile>\n    </div>\n  </div>\n\n</div>\n"
 
 /***/ },
 /* 101 */
@@ -66975,7 +66987,8 @@
 	exports.default = function () {
 	  var invoiceProductTile = {
 	    bindings: {
-	      props: '<'
+	      props: '<',
+	      index: '<'
 	    },
 	    template: __webpack_require__(103)
 	  };
@@ -66986,7 +66999,7 @@
 /* 103 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"invoice-product-tile\">\n\n  <div class=\"data-row\">\n    <div>\n      {{$ctrl.props.product_id}}\n    </div>\n    <div>\n      {{$ctrl.props.product_name}}\n    </div>\n    <div>\n      {{$ctrl.props.units}}\n    </div>\n    <div>\n      {{$ctrl.props.unit_price | currency : '$'}}\n    </div>\n    <div>\n      {{$ctrl.props.unit_price * $ctrl.props.units | currency : '$'}}\n    </div>\n  </div>\n\n</div>\n"
+	module.exports = "<div class=\"invoice-product-tile\" ng-class=\"$ctrl.index % 2 !== 0 ? 'even': ''\">\n\n  <div class=\"data-row\">\n    <div>\n      {{$ctrl.props.product_id}}\n    </div>\n    <div>\n      {{$ctrl.props.product_name}}\n    </div>\n    <div>\n      {{$ctrl.props.units}}\n    </div>\n    <div>\n      {{$ctrl.props.unit_price | currency : '$'}}\n    </div>\n    <div>\n      {{$ctrl.props.unit_price * $ctrl.props.units | currency : '$'}}\n    </div>\n  </div>\n\n</div>\n"
 
 /***/ }
 /******/ ]);

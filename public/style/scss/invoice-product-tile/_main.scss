@@ -1,7 +1,6 @@
-.invoice-tile {
+.invoice-product-tile {
   margin: 0 -20px;
   padding: 5px 20px;
-  border-bottom: 1px solid #999;
   > .data-row {
     display: inline-flex;
     width: 100%;
@@ -9,19 +8,12 @@
       width: 10%;
       min-width: 115px;
     }
-    > div:first-child {
-      text-decoration: underline;
-      cursor: pointer;
-    }
     > div:nth-child(2) {
       width: 15%;
       min-width: 170px;
     }
   }
-  > .products {
-    padding-top: 5px;
-  }
 }
-.invoice-tile.even {
+.invoice-product-tile.even {
   background-color: $background-grey;
 }

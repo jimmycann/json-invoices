@@ -1,6 +1,8 @@
 .supplier-tile {
-  padding: 5px 0;
-  .data-row {
+  margin: 0 -20px;
+  padding: 5px 20px;
+  border-bottom: 1px solid #999;
+  > .data-row {
     display: inline-flex;
     width: 100%;
     > div {
@@ -12,4 +14,7 @@
       min-width: 230px;
     }
   }
+}
+.supplier-tile.even {
+  background-color: $background-grey;
 }
