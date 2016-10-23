@@ -82,25 +82,31 @@
 	
 	var _fileUpload2 = _interopRequireDefault(_fileUpload);
 	
+	var _stock = __webpack_require__(77);
+	
+	var _stock2 = _interopRequireDefault(_stock);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	if (false) {
 	  require('angular-mocks/angular-mocks');
 	}
 	
-	_angular2.default.module('app', ['app.core', 'app.main', 'app.socket', 'app.upload']);
+	_angular2.default.module('app', ['app.core', 'app.main', 'app.socket', 'app.upload', 'app.stock']);
 	
 	_angular2.default.module('app.core', ['ui.router', 'ngSanitize', 'ngAnimate', 'angularFileUpload']);
 	
 	_angular2.default.module('app.main', []);
 	_angular2.default.module('app.socket', []);
 	_angular2.default.module('app.upload', []);
+	_angular2.default.module('app.stock', []);
 	
 	(0, _config2.default)();
 	(0, _socket2.default)();
 	(0, _filter2.default)();
 	(0, _main2.default)();
 	(0, _fileUpload2.default)();
+	(0, _stock2.default)();
 
 /***/ },
 /* 1 */
@@ -58534,9 +58540,6 @@
 	    var vm = this;
 	
 	    vm.$onInit = function () {
-	      PubSub.subscribe('stock', function (data) {
-	        console.log(data);
-	      });
 	      PubSub.subscribe('suppliers', function (data) {
 	        console.log(data);
 	      });
@@ -66401,6 +66404,133 @@
 	        socket.removeAllListeners(channel);
 	      });
 	      container = [];
+	    }
+	  }
+	};
+
+/***/ },
+/* 77 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _controller = __webpack_require__(78);
+	
+	var _controller2 = _interopRequireDefault(_controller);
+	
+	var _component = __webpack_require__(79);
+	
+	var _component2 = _interopRequireDefault(_component);
+	
+	var _factory = __webpack_require__(81);
+	
+	var _factory2 = _interopRequireDefault(_factory);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function () {
+	  (0, _controller2.default)();
+	  (0, _component2.default)();
+	  (0, _factory2.default)();
+	};
+
+/***/ },
+/* 78 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  angular.module('app.stock').controller('StockController', StockController);
+	
+	  StockController.$inject = ['PubSub', 'stockFactory'];
+	
+	  function StockController(PubSub, stockFactory) {
+	    var vm = this;
+	
+	    vm.$onInit = function () {
+	      vm.stock = [];
+	      PubSub.subscribe('stock', function (data) {
+	        var find = false;
+	        _.find(vm.stock, function (obj, key) {
+	          if (obj.product_id === data.product_id) {
+	            vm.stock[key] = data;
+	            find = true;
+	          }
+	        });
+	        if (!find) vm.stock.push(data);
+	      });
+	      stockFactory.fetchAll().then(function (res) {
+	        vm.stock = res;
+	      });
+	    };
+	  }
+	};
+
+/***/ },
+/* 79 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  var stock = {
+	    bindings: {
+	      props: '<'
+	    },
+	    template: __webpack_require__(80),
+	    controller: 'StockController as vm'
+	  };
+	  angular.module('app.stock').component('stock', stock);
+	};
+
+/***/ },
+/* 80 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"stock\">\n\n  {{vm.stock}}\n\n</div>\n"
+
+/***/ },
+/* 81 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  angular.module('app.stock').factory('stockFactory', stockFactory);
+	
+	  stockFactory.$inject = ['$http'];
+	
+	  function stockFactory($http) {
+	    return {
+	      fetchAll: fetchAll
+	    };
+	    function fetchAll(data) {
+	      return $http({
+	        method: 'POST',
+	        url: '/api/v1/stock/fetch-all',
+	        data: data
+	      }).then(function (res) {
+	        return res.data;
+	      }).catch(function (err) {
+	        return err.data;
+	      });
 	    }
 	  }
 	};

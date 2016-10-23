@@ -1,3 +1,5 @@
+'use strict'
+
 const path = require('path')
 const db = require(path.join(global.APP_ROOT, './.config/.db'))
 const thinky = require('thinky')(db.rethinkdb)

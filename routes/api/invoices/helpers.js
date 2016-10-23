@@ -4,9 +4,9 @@ const through2 = require('through2')
 const Promise = require('bluebird')
 const path = require('path')
 
-const Invoices = require(path.join(global.APP_ROOT, './routes/models/Invoices'))
-const Stock = require(path.join(global.APP_ROOT, './routes/models/Stock'))
-const Suppliers = require(path.join(global.APP_ROOT, './routes/models/Suppliers'))
+const Invoices = require(path.join(global.APP_ROOT, './routes/models')).Invoices
+const Stock = require(path.join(global.APP_ROOT, './routes/models')).Stock
+const Suppliers = require(path.join(global.APP_ROOT, './routes/models')).Suppliers
 
 function processNewInvoice (path) {
   return new Promise((resolve, reject) => {

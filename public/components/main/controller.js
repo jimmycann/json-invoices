@@ -14,9 +14,6 @@ export default () => {
     let vm = this
 
     vm.$onInit = () => {
-      PubSub.subscribe('stock', (data) => {
-        console.log(data)
-      })
       PubSub.subscribe('suppliers', (data) => {
         console.log(data)
       })

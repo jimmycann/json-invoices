@@ -16,12 +16,14 @@ import registerSocket from './components/socket'
 import registerFilters from './components/filter'
 import registerMain from './components/main'
 import registerFileUpload from './components/file-upload'
+import registerStock from './components/stock'
 
 angular.module('app', [
   'app.core',
   'app.main',
   'app.socket',
-  'app.upload'
+  'app.upload',
+  'app.stock'
 ])
 
 angular.module('app.core', [
@@ -34,9 +36,11 @@ angular.module('app.core', [
 angular.module('app.main', [])
 angular.module('app.socket', [])
 angular.module('app.upload', [])
+angular.module('app.stock', [])
 
 registerConfig()
 registerSocket()
 registerFilters()
 registerMain()
 registerFileUpload()
+registerStock()
