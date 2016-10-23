@@ -10,13 +10,14 @@ const Suppliers = require(path.join(global.APP_ROOT, './routes/models')).Supplie
 
 function processNewInvoice (path) {
   return new Promise((resolve, reject) => {
+    let subtotal = 0
     fs.createReadStream(path)
       .pipe(JSONStream.parse('*.products.*'))
       .pipe(through2.obj((chunk, enc, cb) => {
+        subtotal += chunk.units * chunk.unit_price
         Stock.get(chunk.product_id).run().then((stock) => {
           stock.units = stock.units + chunk.units
-          stock.save().then((newStock) => {
-            console.log(newStock)
+          stock.save().then(() => {
             cb(null, chunk)
           })
         }).catch((err) => {
@@ -27,14 +28,13 @@ function processNewInvoice (path) {
               cost_price: chunk.unit_price,
               sale_price: Math.round(chunk.unit_price * 1.5),
               units: chunk.units
-            }).then((result) => {
-              console.log(result)
+            }).then(() => {
               cb(null, chunk)
             })
           } else return reject(err)
         })
       }, () => {
-        return resolve()
+        return resolve(subtotal)
       }
     ))
   })
@@ -56,10 +56,17 @@ function findOrCreateInvoice (path) {
           this.createInvoice(chunk)
         }).catch(() => {
           this.createInvoice(chunk)
-          return resolve(chunk.invoice_number)
+          return resolve({ invoice_number: chunk.invoice_number })
         })
       }
     ))
+  })
+}
+
+function updateSubtotal (subtotal, invoiceNumber) {
+  Invoices.get(invoiceNumber).run().then((invoice) => {
+    invoice.subtotal = subtotal
+    invoice.save()
   })
 }
 
@@ -69,8 +76,6 @@ function createInvoice (data) {
     supplier_id: data.supplier_id,
     subtotal: 0,
     products: data.products
-  }).then((result) => {
-    console.log(result)
   })
 }
 
@@ -87,6 +92,7 @@ function fetchAll () {
 module.exports = {
   processNewInvoice: processNewInvoice,
   findOrCreateInvoice: findOrCreateInvoice,
+  updateSubtotal: updateSubtotal,
   createInvoice: createInvoice,
   fetchAll: fetchAll
 }

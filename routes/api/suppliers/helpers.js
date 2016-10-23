@@ -5,8 +5,18 @@ const Suppliers = require(path.join(global.APP_ROOT, './routes/models')).Supplie
 
 function fetchAll () {
   return new Promise((resolve, reject) => {
-    Suppliers.run().then((stock) => {
-      resolve(stock)
+    Suppliers.run().then((suppliers) => {
+      resolve(suppliers)
+    }).catch((err) => {
+      reject(err)
+    })
+  })
+}
+
+function findOne (id) {
+  return new Promise((resolve, reject) => {
+    Suppliers.get(id).run().then((supplier) => {
+      resolve(supplier)
     }).catch((err) => {
       reject(err)
     })
@@ -14,5 +24,6 @@ function fetchAll () {
 }
 
 module.exports = {
-  fetchAll: fetchAll
+  fetchAll: fetchAll,
+  findOne: findOne
 }

@@ -8,18 +8,28 @@ export default () => {
 
   function suppliersFactory ($http) {
     return {
-      fetchAll: fetchAll
+      fetchAll: fetchAll,
+      findOne: findOne
     }
     function fetchAll (data) {
       return $http({
         method: 'POST',
         url: '/api/v1/suppliers/fetch-all',
         data: data
-      })
-      .then((res) => {
+      }).then((res) => {
         return res.data
+      }).catch((err) => {
+        return err.data
       })
-      .catch((err) => {
+    }
+    function findOne (data) {
+      return $http({
+        method: 'POST',
+        url: '/api/v1/suppliers/find-one',
+        data: data
+      }).then((res) => {
+        return res.data
+      }).catch((err) => {
         return err.data
       })
     }
