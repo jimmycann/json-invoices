@@ -4,9 +4,9 @@
     <div nv-file-drop="" uploader="vm.uploader" nv-file-select="">
       <div nv-file-over="" uploader="vm.uploader" over-class="another-file-over-class" class="well my-drop-zone">
         <h3>Drop Invoice Here</h3>
-        <span class="small">Accepts .json files</span>
       </div>
     </div>
+    <input type="file" nv-file-select="" class="upload" uploader="FileUpload.uploader" multiple/>
   </div>
 
   <input ng-if="!vm.uploader.isHTML5" type="file" nv-file-select="" name="json" uploader="vm.uploader" multiple />

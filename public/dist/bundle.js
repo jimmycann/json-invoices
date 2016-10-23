@@ -58721,7 +58721,7 @@
 /* 25 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"file-upload\">\n\n  <div ng-if=\"vm.uploader.isHTML5\" class=\"upload-div\">\n    <div nv-file-drop=\"\" uploader=\"vm.uploader\" nv-file-select=\"\">\n      <div nv-file-over=\"\" uploader=\"vm.uploader\" over-class=\"another-file-over-class\" class=\"well my-drop-zone\">\n        <h3>Drop Invoice Here</h3>\n        <span class=\"small\">Accepts .json files</span>\n      </div>\n    </div>\n  </div>\n\n  <input ng-if=\"!vm.uploader.isHTML5\" type=\"file\" nv-file-select=\"\" name=\"json\" uploader=\"vm.uploader\" multiple />\n\n  <div class=\"notf-box\" ng-class=\"vm.notification\">\n    <h5 ng-if=\"vm.notification === 'dupe'\">Duplicate Invoice</h5>\n    <h5 ng-if=\"vm.notification === 'success'\">Added Successfully!</h5>\n  </div>\n\n</div>\n"
+	module.exports = "<div class=\"file-upload\">\n\n  <div ng-if=\"vm.uploader.isHTML5\" class=\"upload-div\">\n    <div nv-file-drop=\"\" uploader=\"vm.uploader\" nv-file-select=\"\">\n      <div nv-file-over=\"\" uploader=\"vm.uploader\" over-class=\"another-file-over-class\" class=\"well my-drop-zone\">\n        <h3>Drop Invoice Here</h3>\n      </div>\n    </div>\n    <input type=\"file\" nv-file-select=\"\" class=\"upload\" uploader=\"FileUpload.uploader\" multiple/>\n  </div>\n\n  <input ng-if=\"!vm.uploader.isHTML5\" type=\"file\" nv-file-select=\"\" name=\"json\" uploader=\"vm.uploader\" multiple />\n\n  <div class=\"notf-box\" ng-class=\"vm.notification\">\n    <h5 ng-if=\"vm.notification === 'dupe'\">Duplicate Invoice</h5>\n    <h5 ng-if=\"vm.notification === 'success'\">Added Successfully!</h5>\n  </div>\n\n</div>\n"
 
 /***/ },
 /* 26 */
