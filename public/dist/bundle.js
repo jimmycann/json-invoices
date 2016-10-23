@@ -86,13 +86,17 @@
 	
 	var _stock2 = _interopRequireDefault(_stock);
 	
+	var _suppliers = __webpack_require__(82);
+	
+	var _suppliers2 = _interopRequireDefault(_suppliers);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	if (false) {
 	  require('angular-mocks/angular-mocks');
 	}
 	
-	_angular2.default.module('app', ['app.core', 'app.main', 'app.socket', 'app.upload', 'app.stock']);
+	_angular2.default.module('app', ['app.core', 'app.main', 'app.socket', 'app.upload', 'app.stock', 'app.invoices', 'app.suppliers']);
 	
 	_angular2.default.module('app.core', ['ui.router', 'ngSanitize', 'ngAnimate', 'angularFileUpload']);
 	
@@ -100,6 +104,8 @@
 	_angular2.default.module('app.socket', []);
 	_angular2.default.module('app.upload', []);
 	_angular2.default.module('app.stock', []);
+	_angular2.default.module('app.invoices', []);
+	_angular2.default.module('app.suppliers', []);
 	
 	(0, _config2.default)();
 	(0, _socket2.default)();
@@ -107,6 +113,8 @@
 	(0, _main2.default)();
 	(0, _fileUpload2.default)();
 	(0, _stock2.default)();
+	(0, _stock2.default)();
+	(0, _suppliers2.default)();
 
 /***/ },
 /* 1 */
@@ -66525,6 +66533,133 @@
 	      return $http({
 	        method: 'POST',
 	        url: '/api/v1/stock/fetch-all',
+	        data: data
+	      }).then(function (res) {
+	        return res.data;
+	      }).catch(function (err) {
+	        return err.data;
+	      });
+	    }
+	  }
+	};
+
+/***/ },
+/* 82 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _controller = __webpack_require__(83);
+	
+	var _controller2 = _interopRequireDefault(_controller);
+	
+	var _component = __webpack_require__(84);
+	
+	var _component2 = _interopRequireDefault(_component);
+	
+	var _factory = __webpack_require__(86);
+	
+	var _factory2 = _interopRequireDefault(_factory);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function () {
+	  (0, _controller2.default)();
+	  (0, _component2.default)();
+	  (0, _factory2.default)();
+	};
+
+/***/ },
+/* 83 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  angular.module('app.suppliers').controller('SuppliersController', SuppliersController);
+	
+	  SuppliersController.$inject = ['PubSub', 'suppliersFactory'];
+	
+	  function SuppliersController(PubSub, suppliersFactory) {
+	    var vm = this;
+	
+	    vm.$onInit = function () {
+	      vm.suppliers = [];
+	      PubSub.subscribe('suppliers', function (data) {
+	        var find = false;
+	        _.find(vm.suppliers, function (obj, key) {
+	          if (obj.product_id === data.product_id) {
+	            vm.suppliers[key] = data;
+	            find = true;
+	          }
+	        });
+	        if (!find) vm.suppliers.push(data);
+	      });
+	      suppliersFactory.fetchAll().then(function (res) {
+	        vm.suppliers = res;
+	      });
+	    };
+	  }
+	};
+
+/***/ },
+/* 84 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  var suppliers = {
+	    bindings: {
+	      props: '<'
+	    },
+	    template: __webpack_require__(85),
+	    controller: 'SuppliersController as vm'
+	  };
+	  angular.module('app.suppliers').component('suppliers', suppliers);
+	};
+
+/***/ },
+/* 85 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"suppliers\">\n\n  {{vm.suppliers}}\n\n</div>\n"
+
+/***/ },
+/* 86 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  angular.module('app.suppliers').factory('suppliersFactory', suppliersFactory);
+	
+	  suppliersFactory.$inject = ['$http'];
+	
+	  function suppliersFactory($http) {
+	    return {
+	      fetchAll: fetchAll
+	    };
+	    function fetchAll(data) {
+	      return $http({
+	        method: 'POST',
+	        url: '/api/v1/suppliers/fetch-all',
 	        data: data
 	      }).then(function (res) {
 	        return res.data;

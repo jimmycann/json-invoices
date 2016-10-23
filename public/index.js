@@ -17,13 +17,17 @@ import registerFilters from './components/filter'
 import registerMain from './components/main'
 import registerFileUpload from './components/file-upload'
 import registerStock from './components/stock'
+import registerInvoices from './components/stock'
+import registerSuppliers from './components/suppliers'
 
 angular.module('app', [
   'app.core',
   'app.main',
   'app.socket',
   'app.upload',
-  'app.stock'
+  'app.stock',
+  'app.invoices',
+  'app.suppliers'
 ])
 
 angular.module('app.core', [
@@ -37,6 +41,8 @@ angular.module('app.main', [])
 angular.module('app.socket', [])
 angular.module('app.upload', [])
 angular.module('app.stock', [])
+angular.module('app.invoices', [])
+angular.module('app.suppliers', [])
 
 registerConfig()
 registerSocket()
@@ -44,3 +50,5 @@ registerFilters()
 registerMain()
 registerFileUpload()
 registerStock()
+registerInvoices()
+registerSuppliers()
