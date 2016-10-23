@@ -1,0 +1,33 @@
+<div class="invoice-tile">
+
+  <div class="data-row">
+    <div>
+      {{$ctrl.props.invoice_number}}
+    </div>
+    <div>
+      {{$ctrl.props.products.length}}
+    </div>
+    <div>
+      {{$ctrl.props.supplier.supplier_name}}
+    </div>
+    <div>
+      {{$ctrl.props.subtotal | currency : '$'}}
+    </div>
+  </div>
+
+  <div class="products">
+
+    <div class="header">
+      <h5>Product ID</h5>
+      <h5>Product Name</h5>
+      <h5>Units</h5>
+      <h5>Unit Price</h5>
+      <h5>Total</h5>
+    </div>
+
+    <div ng-repeat="product in $ctrl.props.products">
+      <invoice-product-tile props="product"></invoice-product-tile>
+    </div>
+  </div>
+
+</div>

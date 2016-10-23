@@ -5,9 +5,11 @@
     width: 100%;
     > div {
       width: 10%;
+      min-width: 115px;
     }
     > div:nth-child(2) {
       width: 20%;
+      min-width: 230px;
     }
   }
 }

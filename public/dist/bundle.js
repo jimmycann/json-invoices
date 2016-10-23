@@ -86,6 +86,14 @@
 	
 	var _invoices2 = _interopRequireDefault(_invoices);
 	
+	var _invoiceTile = __webpack_require__(98);
+	
+	var _invoiceTile2 = _interopRequireDefault(_invoiceTile);
+	
+	var _invoiceProductTile = __webpack_require__(101);
+	
+	var _invoiceProductTile2 = _interopRequireDefault(_invoiceProductTile);
+	
 	var _suppliers = __webpack_require__(82);
 	
 	var _suppliers2 = _interopRequireDefault(_suppliers);
@@ -126,6 +134,8 @@
 	(0, _fileUpload2.default)();
 	
 	(0, _invoices2.default)();
+	(0, _invoiceTile2.default)();
+	(0, _invoiceProductTile2.default)();
 	
 	(0, _suppliers2.default)();
 	(0, _supplierTile2.default)();
@@ -66759,7 +66769,7 @@
 /* 90 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"invoices\">\n\n  {{vm.invoices}}\n\n</div>\n"
+	module.exports = "<div class=\"invoices\">\n\n  <h2>Invoices</h2>\n\n  <div class=\"header\">\n    <h5>Invoice Number</h5>\n    <h5>Number of Products</h5>\n    <h5>Supplier</h5>\n    <h5>Total</h5>\n  </div>\n\n  <div ng-repeat=\"invoice in vm.invoices\">\n    <invoice-tile props=\"invoice\"></invoice-tile>\n  </div>\n\n</div>\n"
 
 /***/ },
 /* 91 */
@@ -66885,6 +66895,98 @@
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"supplier-tile\">\n\n  <div class=\"data-row\">\n    <div>\n      {{$ctrl.props.supplier_id}}\n    </div>\n    <div>\n      {{$ctrl.props.supplier_name}}\n    </div>\n  </div>\n\n</div>\n"
+
+/***/ },
+/* 98 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _component = __webpack_require__(99);
+	
+	var _component2 = _interopRequireDefault(_component);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function () {
+	  (0, _component2.default)();
+	};
+
+/***/ },
+/* 99 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  var invoiceTile = {
+	    bindings: {
+	      props: '<'
+	    },
+	    template: __webpack_require__(100)
+	  };
+	  angular.module('app.invoices').component('invoiceTile', invoiceTile);
+	};
+
+/***/ },
+/* 100 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"invoice-tile\">\n\n  <div class=\"data-row\">\n    <div>\n      {{$ctrl.props.invoice_number}}\n    </div>\n    <div>\n      {{$ctrl.props.products.length}}\n    </div>\n    <div>\n      {{$ctrl.props.supplier.supplier_name}}\n    </div>\n    <div>\n      {{$ctrl.props.subtotal | currency : '$'}}\n    </div>\n  </div>\n\n  <div class=\"products\">\n\n    <div class=\"header\">\n      <h5>Product ID</h5>\n      <h5>Product Name</h5>\n      <h5>Units</h5>\n      <h5>Unit Price</h5>\n      <h5>Total</h5>\n    </div>\n\n    <div ng-repeat=\"product in $ctrl.props.products\">\n      <invoice-product-tile props=\"product\"></invoice-product-tile>\n    </div>\n  </div>\n\n</div>\n"
+
+/***/ },
+/* 101 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _component = __webpack_require__(102);
+	
+	var _component2 = _interopRequireDefault(_component);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function () {
+	  (0, _component2.default)();
+	};
+
+/***/ },
+/* 102 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  var invoiceProductTile = {
+	    bindings: {
+	      props: '<'
+	    },
+	    template: __webpack_require__(103)
+	  };
+	  angular.module('app.invoices').component('invoiceProductTile', invoiceProductTile);
+	};
+
+/***/ },
+/* 103 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"invoice-product-tile\">\n\n  <div class=\"data-row\">\n    <div>\n      {{$ctrl.props.product_id}}\n    </div>\n    <div>\n      {{$ctrl.props.product_name}}\n    </div>\n    <div>\n      {{$ctrl.props.units}}\n    </div>\n    <div>\n      {{$ctrl.props.unit_price | currency : '$'}}\n    </div>\n    <div>\n      {{$ctrl.props.unit_price * $ctrl.props.units | currency : '$'}}\n    </div>\n  </div>\n\n</div>\n"
 
 /***/ }
 /******/ ]);

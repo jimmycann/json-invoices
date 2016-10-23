@@ -11,19 +11,21 @@ if (ON_TEST) {
   require('angular-mocks/angular-mocks')
 }
 
-import registerConfig from './config'
-import registerSocket from './components/socket'
-import registerFilters from './components/filter'
-import registerMain from './components/main'
-import registerFileUpload from './components/file-upload'
+import Config from './config'
+import Socket from './components/socket'
+import Filters from './components/filter'
+import Main from './components/main'
+import FileUpload from './components/file-upload'
 
-import registerInvoices from './components/invoices'
+import Invoices from './components/invoices'
+import InvoiceTile from './components/invoice-tile'
+import InvoiceProductTile from './components/invoice-product-tile'
 
-import registerSuppliers from './components/suppliers'
-import registerSupplierTile from './components/supplier-tile'
+import Suppliers from './components/suppliers'
+import SupplierTile from './components/supplier-tile'
 
-import registerStock from './components/stock'
-import registerStockTile from './components/stock-tile'
+import Stock from './components/stock'
+import StockTile from './components/stock-tile'
 
 angular.module('app', [
   'app.core',
@@ -49,16 +51,18 @@ angular.module('app.stock', [])
 angular.module('app.invoices', [])
 angular.module('app.suppliers', [])
 
-registerConfig()
-registerSocket()
-registerFilters()
-registerMain()
-registerFileUpload()
+Config()
+Socket()
+Filters()
+Main()
+FileUpload()
 
-registerInvoices()
+Invoices()
+InvoiceTile()
+InvoiceProductTile()
 
-registerSuppliers()
-registerSupplierTile()
+Suppliers()
+SupplierTile()
 
-registerStock()
-registerStockTile()
+Stock()
+StockTile()

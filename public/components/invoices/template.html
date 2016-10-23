@@ -1,5 +1,16 @@
 <div class="invoices">
 
-  {{vm.invoices}}
+  <h2>Invoices</h2>
+
+  <div class="header">
+    <h5>Invoice Number</h5>
+    <h5>Number of Products</h5>
+    <h5>Supplier</h5>
+    <h5>Total</h5>
+  </div>
+
+  <div ng-repeat="invoice in vm.invoices">
+    <invoice-tile props="invoice"></invoice-tile>
+  </div>
 
 </div>

@@ -1,16 +1,13 @@
-.invoices {
-  padding: 20px;
-  > h2 {
-    font-weight: 100;
-  }
-  .header {
+.invoice-tile {
+  padding: 5px 0;
+  .data-row {
     display: inline-flex;
     width: 100%;
-    > h5 {
+    > div {
       width: 10%;
       min-width: 115px;
     }
-    > h5:nth-child(2) {
+    > div:nth-child(2) {
       width: 15%;
       min-width: 170px;
     }

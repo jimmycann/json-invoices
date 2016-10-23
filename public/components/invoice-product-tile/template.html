@@ -1,0 +1,21 @@
+<div class="invoice-product-tile">
+
+  <div class="data-row">
+    <div>
+      {{$ctrl.props.product_id}}
+    </div>
+    <div>
+      {{$ctrl.props.product_name}}
+    </div>
+    <div>
+      {{$ctrl.props.units}}
+    </div>
+    <div>
+      {{$ctrl.props.unit_price | currency : '$'}}
+    </div>
+    <div>
+      {{$ctrl.props.unit_price * $ctrl.props.units | currency : '$'}}
+    </div>
+  </div>
+
+</div>
