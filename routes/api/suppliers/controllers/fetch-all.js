@@ -3,9 +3,9 @@
 const Helpers = require('../helpers')
 
 module.exports = (app) => {
-  app.post('/api/v1/stock/fetch-all', (req, res) => {
-    Helpers.fetchAll().then((stock) => {
-      return res.status(200).send(stock)
+  app.post('/api/v1/suppliers/fetch-all', (req, res) => {
+    Helpers.fetchAll().then((suppliers) => {
+      return res.status(200).send(suppliers)
     }).catch((err) => {
       return res.status(500).send(err)
     })

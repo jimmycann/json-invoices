@@ -18,7 +18,9 @@ import registerMain from './components/main'
 import registerFileUpload from './components/file-upload'
 
 import registerInvoices from './components/invoices'
+
 import registerSuppliers from './components/suppliers'
+import registerSupplierTile from './components/supplier-tile'
 
 import registerStock from './components/stock'
 import registerStockTile from './components/stock-tile'
@@ -54,7 +56,9 @@ registerMain()
 registerFileUpload()
 
 registerInvoices()
+
 registerSuppliers()
+registerSupplierTile()
 
 registerStock()
 registerStockTile()

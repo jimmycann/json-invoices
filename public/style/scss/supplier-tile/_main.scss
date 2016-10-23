@@ -1,0 +1,13 @@
+.supplier-tile {
+  padding: 5px 0;
+  .data-row {
+    display: inline-flex;
+    width: 100%;
+    > div {
+      width: 10%;
+    }
+    > div:nth-child(2) {
+      width: 20%;
+    }
+  }
+}

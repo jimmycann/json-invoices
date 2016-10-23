@@ -1,5 +1,14 @@
 <div class="suppliers">
 
-  {{vm.suppliers}}
+  <h2>Suppliers</h2>
+
+  <div class="header">
+    <h5>Supplier ID</h5>
+    <h5>Supplier Name</h5>
+  </div>
+
+  <div ng-repeat="supplier in vm.suppliers">
+    <supplier-tile props="supplier"></supplier-tile>
+  </div>
 
 </div>

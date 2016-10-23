@@ -1,0 +1,16 @@
+.invoices {
+  padding: 20px;
+  > h2 {
+    font-weight: 100;
+  }
+  .header {
+    display: inline-flex;
+    width: 100%;
+    > h5 {
+      width: 10%;
+    }
+    > h5:first-child {
+      width: 20%;
+    }
+  }
+}

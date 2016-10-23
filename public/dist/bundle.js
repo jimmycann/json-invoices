@@ -90,6 +90,10 @@
 	
 	var _suppliers2 = _interopRequireDefault(_suppliers);
 	
+	var _supplierTile = __webpack_require__(95);
+	
+	var _supplierTile2 = _interopRequireDefault(_supplierTile);
+	
 	var _stock = __webpack_require__(77);
 	
 	var _stock2 = _interopRequireDefault(_stock);
@@ -122,7 +126,9 @@
 	(0, _fileUpload2.default)();
 	
 	(0, _invoices2.default)();
+	
 	(0, _suppliers2.default)();
+	(0, _supplierTile2.default)();
 	
 	(0, _stock2.default)();
 	(0, _stockTile2.default)();
@@ -66626,7 +66632,7 @@
 /* 85 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"suppliers\">\n\n  {{vm.suppliers}}\n\n</div>\n"
+	module.exports = "<div class=\"suppliers\">\n\n  <h2>Suppliers</h2>\n\n  <div class=\"header\">\n    <h5>Supplier ID</h5>\n    <h5>Supplier Name</h5>\n  </div>\n\n  <div ng-repeat=\"supplier in vm.suppliers\">\n    <supplier-tile props=\"supplier\"></supplier-tile>\n  </div>\n\n</div>\n"
 
 /***/ },
 /* 86 */
@@ -66833,6 +66839,52 @@
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"stock-tile\">\n\n  <div class=\"data-row\">\n    <div>\n      {{$ctrl.props.product_id}}\n    </div>\n    <div>\n      {{$ctrl.props.product_name}}\n    </div>\n    <div>\n      {{$ctrl.props.cost_price | currency : '$'}}\n    </div>\n    <div>\n      {{$ctrl.props.sale_price | currency : '$'}}\n    </div>\n    <div>\n      {{$ctrl.props.units}}\n    </div>\n  </div>\n\n</div>\n"
+
+/***/ },
+/* 95 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _component = __webpack_require__(96);
+	
+	var _component2 = _interopRequireDefault(_component);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function () {
+	  (0, _component2.default)();
+	};
+
+/***/ },
+/* 96 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  var supplierTile = {
+	    bindings: {
+	      props: '<'
+	    },
+	    template: __webpack_require__(97)
+	  };
+	  angular.module('app.suppliers').component('supplierTile', supplierTile);
+	};
+
+/***/ },
+/* 97 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"supplier-tile\">\n\n  <div class=\"data-row\">\n    <div>\n      {{$ctrl.props.supplier_id}}\n    </div>\n    <div>\n      {{$ctrl.props.supplier_name}}\n    </div>\n  </div>\n\n</div>\n"
 
 /***/ }
 /******/ ]);

@@ -3,7 +3,7 @@
 const path = require('path')
 const invoices = require('./api/invoices')
 const stock = require('./api/stock')
-const suppliers = require('./api/stock')
+const suppliers = require('./api/suppliers')
 
 module.exports = (app, router) => {
   invoices(app)
