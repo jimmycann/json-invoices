@@ -16,11 +16,8 @@ global.APP_ROOT = __dirname
 // Configuration ===========================================
 
 const io = global.io = require('socket.io')(Server)
-io.on('connection', (socket) => {
+io.on('connection', () => {
   console.log('New client connected to socket')
-  socket.emit('stock', 'Subscribed to the stock channel')
-  socket.emit('suppliers', 'Subscribed to the suppliers channel')
-  socket.emit('invoices', 'Subscribed to the invoices channel')
 })
 io.listen(process.env.SOCKET_PORT || 3001)
 

@@ -8,18 +8,17 @@ export default () => {
   angular.module('app.main')
       .controller('MainController', MainController)
 
-  MainController.$inject = ['PubSub']
+  MainController.$inject = ['$stateParams']
 
-  function MainController (PubSub) {
+  function MainController ($stateParams) {
     let vm = this
 
+    vm.switch = (view) => {
+      vm.view = view
+    }
+
     vm.$onInit = () => {
-      PubSub.subscribe('suppliers', (data) => {
-        console.log(data)
-      })
-      PubSub.subscribe('invoices', (data) => {
-        console.log(data)
-      })
+      vm.view = $stateParams.view || 'stock'
     }
   }
 }

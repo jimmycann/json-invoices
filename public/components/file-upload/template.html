@@ -11,4 +11,9 @@
 
   <input ng-if="!vm.uploader.isHTML5" type="file" nv-file-select="" name="json" uploader="vm.uploader" multiple />
 
+  <div class="notf-box" ng-class="vm.notification">
+    <h5 ng-if="vm.notification === 'dupe'">Duplicate Invoice</h5>
+    <h5 ng-if="vm.notification === 'success'">Added Successfully!</h5>
+  </div>
+
 </div>

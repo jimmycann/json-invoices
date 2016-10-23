@@ -1,5 +1,14 @@
 <div class="main">
   <file-upload></file-upload>
 
-  <stock></stock>
+  <div class="menu">
+    <a href="/stock">Stock</a>
+    <a href="/invoices">Invoices</a>
+    <a href="/suppliers">Suppliers</a>
+  </div>
+
+  <stock ng-if="vm.view === 'stock'"></stock>
+  <invoices ng-if="vm.view === 'invoices'"></invoices>
+  <suppliers ng-if="vm.view === 'suppliers'"></suppliers>
+
 </div>

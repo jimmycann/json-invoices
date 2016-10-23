@@ -22,7 +22,8 @@ export default () => {
         if (!find) vm.suppliers.push(data)
       })
       suppliersFactory.fetchAll().then((res) => {
-        vm.suppliers = _.reverse(res)
+        if (res.length > 0) res = _.reverse(res)
+        vm.suppliers = res
       })
     }
   }

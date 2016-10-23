@@ -74,8 +74,19 @@ function createInvoice (data) {
   })
 }
 
+function fetchAll () {
+  return new Promise((resolve, reject) => {
+    Invoices.run().then((invoices) => {
+      resolve(invoices)
+    }).catch((err) => {
+      reject(err)
+    })
+  })
+}
+
 module.exports = {
   processNewInvoice: processNewInvoice,
   findOrCreateInvoice: findOrCreateInvoice,
-  createInvoice: createInvoice
+  createInvoice: createInvoice,
+  fetchAll: fetchAll
 }

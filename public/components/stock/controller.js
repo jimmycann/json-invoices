@@ -22,7 +22,8 @@ export default () => {
         if (!find) vm.stock.push(data)
       })
       stockFactory.fetchAll().then((res) => {
-        vm.stock = _.reverse(res)
+        if (res.length > 0) res = _.reverse(res)
+        vm.stock = res
       })
     }
   }

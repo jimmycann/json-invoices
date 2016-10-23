@@ -9,6 +9,13 @@ export default () => {
         controller: 'MainController as vm',
         controllerAs: 'main'
       })
+
+      $stateProvider.state('view', {
+        url: '/:view',
+        templateUrl: 'components/main/template.html',
+        controller: 'MainController as vm',
+        controllerAs: 'main'
+      })
       $locationProvider.html5Mode(true)
     })
 }

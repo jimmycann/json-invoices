@@ -1,5 +1,8 @@
 .stock {
   padding: 20px 0;
+  > h2 {
+    font-weight: 100;
+  }
   .header {
     display: inline-flex;
     width: 100%;
