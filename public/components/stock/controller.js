@@ -22,7 +22,7 @@ export default () => {
         if (!find) vm.stock.push(data)
       })
       stockFactory.fetchAll().then((res) => {
-        vm.stock = res
+        vm.stock = _.reverse(res)
       })
     }
   }

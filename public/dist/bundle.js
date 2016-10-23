@@ -82,13 +82,21 @@
 	
 	var _fileUpload2 = _interopRequireDefault(_fileUpload);
 	
-	var _stock = __webpack_require__(77);
+	var _invoices = __webpack_require__(87);
 	
-	var _stock2 = _interopRequireDefault(_stock);
+	var _invoices2 = _interopRequireDefault(_invoices);
 	
 	var _suppliers = __webpack_require__(82);
 	
 	var _suppliers2 = _interopRequireDefault(_suppliers);
+	
+	var _stock = __webpack_require__(77);
+	
+	var _stock2 = _interopRequireDefault(_stock);
+	
+	var _stockTile = __webpack_require__(92);
+	
+	var _stockTile2 = _interopRequireDefault(_stockTile);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -112,9 +120,12 @@
 	(0, _filter2.default)();
 	(0, _main2.default)();
 	(0, _fileUpload2.default)();
-	(0, _stock2.default)();
-	(0, _stock2.default)();
+	
+	(0, _invoices2.default)();
 	(0, _suppliers2.default)();
+	
+	(0, _stock2.default)();
+	(0, _stockTile2.default)();
 
 /***/ },
 /* 1 */
@@ -66304,10 +66315,6 @@
 	  value: true
 	});
 	
-	var _socket = __webpack_require__(74);
-	
-	var _socket2 = _interopRequireDefault(_socket);
-	
 	var _PubSub = __webpack_require__(76);
 	
 	var _PubSub2 = _interopRequireDefault(_PubSub);
@@ -66315,35 +66322,11 @@
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = function () {
-	  (0, _socket2.default)();
 	  (0, _PubSub2.default)();
 	};
 
 /***/ },
-/* 74 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	exports.default = function () {
-	  angular.module('app.socket').factory('socket', socket);
-	
-	  var io = __webpack_require__(26);
-	
-	  function socket() {
-	    var socket = io.connect('http://localhost:3001');
-	    socket.on('connect', function () {
-	      console.log('User connected to socket');
-	    });
-	    return socket;
-	  }
-	};
-
-/***/ },
+/* 74 */,
 /* 75 */
 /***/ function(module, exports) {
 
@@ -66477,7 +66460,7 @@
 	        if (!find) vm.stock.push(data);
 	      });
 	      stockFactory.fetchAll().then(function (res) {
-	        vm.stock = res;
+	        vm.stock = _.reverse(res);
 	      });
 	    };
 	  }
@@ -66508,7 +66491,7 @@
 /* 80 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"stock\">\n\n  {{vm.stock}}\n\n</div>\n"
+	module.exports = "<div class=\"stock\">\n\n  <h2>Stock</h2>\n\n  <div class=\"header\">\n    <h5>Product ID</h5>\n    <h5>Product Name</h5>\n    <h5>Cost Price</h5>\n    <h5>Sale Price</h5>\n    <h5>Units</h5>\n  </div>\n\n  <div ng-repeat=\"product in vm.stock\">\n    <stock-tile props=\"product\"></stock-tile>\n  </div>\n\n</div>\n"
 
 /***/ },
 /* 81 */
@@ -66596,7 +66579,7 @@
 	      PubSub.subscribe('suppliers', function (data) {
 	        var find = false;
 	        _.find(vm.suppliers, function (obj, key) {
-	          if (obj.product_id === data.product_id) {
+	          if (obj.supplier_id === data.supplier_id) {
 	            vm.suppliers[key] = data;
 	            find = true;
 	          }
@@ -66604,7 +66587,7 @@
 	        if (!find) vm.suppliers.push(data);
 	      });
 	      suppliersFactory.fetchAll().then(function (res) {
-	        vm.suppliers = res;
+	        vm.suppliers = _.reverse(res);
 	      });
 	    };
 	  }
@@ -66669,6 +66652,179 @@
 	    }
 	  }
 	};
+
+/***/ },
+/* 87 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _controller = __webpack_require__(88);
+	
+	var _controller2 = _interopRequireDefault(_controller);
+	
+	var _component = __webpack_require__(89);
+	
+	var _component2 = _interopRequireDefault(_component);
+	
+	var _factory = __webpack_require__(91);
+	
+	var _factory2 = _interopRequireDefault(_factory);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function () {
+	  (0, _controller2.default)();
+	  (0, _component2.default)();
+	  (0, _factory2.default)();
+	};
+
+/***/ },
+/* 88 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  angular.module('app.invoices').controller('InvoicesController', InvoicesController);
+	
+	  InvoicesController.$inject = ['PubSub', 'invoicesFactory'];
+	
+	  function InvoicesController(PubSub, invoicesFactory) {
+	    var vm = this;
+	
+	    vm.$onInit = function () {
+	      vm.invoices = [];
+	      PubSub.subscribe('invoices', function (data) {
+	        var find = false;
+	        _.find(vm.invoices, function (obj, key) {
+	          if (obj.invoice_number === data.invoice_number) {
+	            vm.invoices[key] = data;
+	            find = true;
+	          }
+	        });
+	        if (!find) vm.invoices.push(data);
+	      });
+	      invoicesFactory.fetchAll().then(function (res) {
+	        vm.invoices = res;
+	      });
+	    };
+	  }
+	};
+
+/***/ },
+/* 89 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  var invoices = {
+	    bindings: {
+	      props: '<'
+	    },
+	    template: __webpack_require__(90),
+	    controller: 'InvoicesController as vm'
+	  };
+	  angular.module('app.invoices').component('invoices', invoices);
+	};
+
+/***/ },
+/* 90 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"invoices\">\n\n  {{vm.invoices}}\n\n</div>\n"
+
+/***/ },
+/* 91 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  angular.module('app.invoices').factory('invoicesFactory', invoicesFactory);
+	
+	  invoicesFactory.$inject = ['$http'];
+	
+	  function invoicesFactory($http) {
+	    return {
+	      fetchAll: fetchAll
+	    };
+	    function fetchAll(data) {
+	      return $http({
+	        method: 'POST',
+	        url: '/api/v1/invoices/fetch-all',
+	        data: data
+	      }).then(function (res) {
+	        return res.data;
+	      }).catch(function (err) {
+	        return err.data;
+	      });
+	    }
+	  }
+	};
+
+/***/ },
+/* 92 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _component = __webpack_require__(93);
+	
+	var _component2 = _interopRequireDefault(_component);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function () {
+	  (0, _component2.default)();
+	};
+
+/***/ },
+/* 93 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  var stockTile = {
+	    bindings: {
+	      props: '<'
+	    },
+	    template: __webpack_require__(94)
+	  };
+	  angular.module('app.stock').component('stockTile', stockTile);
+	};
+
+/***/ },
+/* 94 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"stock-tile\">\n\n  <div class=\"data-row\">\n    <div>\n      {{$ctrl.props.product_id}}\n    </div>\n    <div>\n      {{$ctrl.props.product_name}}\n    </div>\n    <div>\n      {{$ctrl.props.cost_price | currency : '$'}}\n    </div>\n    <div>\n      {{$ctrl.props.sale_price | currency : '$'}}\n    </div>\n    <div>\n      {{$ctrl.props.units}}\n    </div>\n  </div>\n\n</div>\n"
 
 /***/ }
 /******/ ]);

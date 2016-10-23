@@ -1,0 +1,21 @@
+<div class="stock-tile">
+
+  <div class="data-row">
+    <div>
+      {{$ctrl.props.product_id}}
+    </div>
+    <div>
+      {{$ctrl.props.product_name}}
+    </div>
+    <div>
+      {{$ctrl.props.cost_price | currency : '$'}}
+    </div>
+    <div>
+      {{$ctrl.props.sale_price | currency : '$'}}
+    </div>
+    <div>
+      {{$ctrl.props.units}}
+    </div>
+  </div>
+
+</div>

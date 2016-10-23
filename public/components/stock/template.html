@@ -1,5 +1,17 @@
 <div class="stock">
 
-  {{vm.stock}}
+  <h2>Stock</h2>
+
+  <div class="header">
+    <h5>Product ID</h5>
+    <h5>Product Name</h5>
+    <h5>Cost Price</h5>
+    <h5>Sale Price</h5>
+    <h5>Units</h5>
+  </div>
+
+  <div ng-repeat="product in vm.stock">
+    <stock-tile props="product"></stock-tile>
+  </div>
 
 </div>

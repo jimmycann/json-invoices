@@ -16,9 +16,12 @@ import registerSocket from './components/socket'
 import registerFilters from './components/filter'
 import registerMain from './components/main'
 import registerFileUpload from './components/file-upload'
-import registerStock from './components/stock'
-import registerInvoices from './components/stock'
+
+import registerInvoices from './components/invoices'
 import registerSuppliers from './components/suppliers'
+
+import registerStock from './components/stock'
+import registerStockTile from './components/stock-tile'
 
 angular.module('app', [
   'app.core',
@@ -49,6 +52,9 @@ registerSocket()
 registerFilters()
 registerMain()
 registerFileUpload()
-registerStock()
+
 registerInvoices()
 registerSuppliers()
+
+registerStock()
+registerStockTile()

@@ -14,7 +14,7 @@ export default () => {
       PubSub.subscribe('suppliers', (data) => {
         let find = false
         _.find(vm.suppliers, (obj, key) => {
-          if (obj.product_id === data.product_id) {
+          if (obj.supplier_id === data.supplier_id) {
             vm.suppliers[key] = data
             find = true
           }
@@ -22,7 +22,7 @@ export default () => {
         if (!find) vm.suppliers.push(data)
       })
       suppliersFactory.fetchAll().then((res) => {
-        vm.suppliers = res
+        vm.suppliers = _.reverse(res)
       })
     }
   }

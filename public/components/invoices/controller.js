@@ -14,7 +14,7 @@ export default () => {
       PubSub.subscribe('invoices', (data) => {
         let find = false
         _.find(vm.invoices, (obj, key) => {
-          if (obj.product_id === data.product_id) {
+          if (obj.invoice_number === data.invoice_number) {
             vm.invoices[key] = data
             find = true
           }

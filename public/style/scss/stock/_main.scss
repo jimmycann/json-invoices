@@ -1,0 +1,13 @@
+.stock {
+  padding: 20px 0;
+  .header {
+    display: inline-flex;
+    width: 100%;
+    > h5 {
+      width: 10%;
+    }
+    > h5:nth-child(2) {
+      width: 20%;
+    }
+  }
+}
