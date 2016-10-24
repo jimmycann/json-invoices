@@ -1,10 +1,6 @@
 'use strict'
 
 export default () => {
-  if (ON_TEST) {
-    require('./test/main.factory.test')
-  }
-
   angular.module('app.main')
       .factory('mainFactory', mainFactory)
 

@@ -7,10 +7,6 @@ import 'angular-sanitize'
 import 'angular-animate'
 import 'angular-file-upload'
 
-if (ON_TEST) {
-  require('angular-mocks/angular-mocks')
-}
-
 import Config from './config'
 import Socket from './components/socket'
 import Filters from './components/filter'

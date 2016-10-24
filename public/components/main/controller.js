@@ -1,10 +1,6 @@
 'use strict'
 
 export default () => {
-  if (ON_TEST) {
-    require('./test/main.controller.test')
-  }
-
   angular.module('app.main')
       .controller('MainController', MainController)
 
