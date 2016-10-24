@@ -16,6 +16,9 @@
     "build:watch": "npm run build -- --watch",
     "start": "node server.js",
     "start:dev": "cross-env NODE_ENV='dev' nodemon server.js",
+    "start:prod": "forever start server.js --prod",
+    "stop:prod": "forever stop server.js",
+    "restart:prod": "forever restart server.js --prod",
     "initialize": "bash initialize.sh ~/www/json-invoices"
   },
   "dependencies": {
@@ -28,6 +31,7 @@
     "eslint-find-rules": "^1.14.0",
     "express": "^4.13.4",
     "express-session": "^1.13.0",
+    "forever": "^0.15.2",
     "helmet": "^2.1.0",
     "lodash": "^4.16.4",
     "method-override": "^2.3.5",
