@@ -5,7 +5,7 @@ export default () => {
       .factory('PubSub', PubSub)
 
   const io = require('socket.io-client')
-  const socket = io.connect('http://127.0.0.1')
+  const socket = io.connect('http://127.0.0.1:3000')
 
   function PubSub () {
     let container = []
