@@ -45,6 +45,7 @@ function findOrCreateInvoice (path) {
     fs.createReadStream(path)
       .pipe(JSONStream.parse('*'))
       .pipe(through2.obj((chunk, enc, cb) => {
+        if (!chunk.supplier_id) return reject('invalid')
         Suppliers.get(chunk.supplier_id).run().then().catch(() => {
           Suppliers.save({
             supplier_id: chunk.supplier_id,
@@ -52,7 +53,7 @@ function findOrCreateInvoice (path) {
           })
         })
         Invoices.get(chunk.invoice_number).run().then((invoice) => {
-          if (invoice.supplier_id === chunk.supplier_id) return resolve('DUPE')
+          if (invoice.supplier_id === chunk.supplier_id) return reject('dupe')
           this.createInvoice(chunk)
         }).catch(() => {
           this.createInvoice(chunk)

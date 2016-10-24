@@ -33,4 +33,17 @@
       font-weight: 300;
     }
   }
+  .notif-box {
+    height: 20px;
+    text-align: center;
+  }
+  .notif-box.dupe {
+    color: orange;
+  }
+  .notif-box.invalid {
+    color: red;
+  }
+  .notif-box.success {
+    color: green;
+  }
 }

@@ -4,9 +4,9 @@ export default () => {
   angular.module('app.upload')
       .controller('FileUploadController', FileUploadController)
 
-  FileUploadController.$inject = ['$scope', '$window', 'FileUploader']
+  FileUploadController.$inject = ['$scope', '$window', '$timeout', 'FileUploader']
 
-  function FileUploadController ($scope, $window, FileUploader) {
+  function FileUploadController ($scope, $window, $timeout, FileUploader) {
     let vm = this
 
     vm.$onInit = () => {
@@ -14,16 +14,16 @@ export default () => {
         url: '/api/v1/invoice/insert',
         removeAfterUpload: true
       })
-      uploader.filters.push({
-        name: 'customFilter',
-        fn: () => {
-          return vm.uploader.queue.length < 10
-        }
-      })
       uploader.onAfterAddingAll = () => {
         uploader.uploadAll()
       }
-      uploader.onCompleteAll = () => {}
+      uploader.onCompleteItem = (fileItem, response) => {
+        console.info(response)
+        vm.notification = response
+        $timeout(() => {
+          vm.notification = null
+        }, 2000)
+      }
       vm.controller = {
         isJson: (item) => {
           var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|'

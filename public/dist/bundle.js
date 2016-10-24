@@ -66,47 +66,47 @@
 	
 	var _config2 = _interopRequireDefault(_config);
 	
-	var _socket = __webpack_require__(73);
+	var _socket = __webpack_require__(18);
 	
 	var _socket2 = _interopRequireDefault(_socket);
 	
-	var _filter = __webpack_require__(17);
+	var _filter = __webpack_require__(67);
 	
 	var _filter2 = _interopRequireDefault(_filter);
 	
-	var _main = __webpack_require__(19);
+	var _main = __webpack_require__(69);
 	
 	var _main2 = _interopRequireDefault(_main);
 	
-	var _fileUpload = __webpack_require__(22);
+	var _fileUpload = __webpack_require__(72);
 	
 	var _fileUpload2 = _interopRequireDefault(_fileUpload);
 	
-	var _invoices = __webpack_require__(87);
+	var _invoices = __webpack_require__(76);
 	
 	var _invoices2 = _interopRequireDefault(_invoices);
 	
-	var _invoiceTile = __webpack_require__(98);
+	var _invoiceTile = __webpack_require__(81);
 	
 	var _invoiceTile2 = _interopRequireDefault(_invoiceTile);
 	
-	var _invoiceProductTile = __webpack_require__(101);
+	var _invoiceProductTile = __webpack_require__(84);
 	
 	var _invoiceProductTile2 = _interopRequireDefault(_invoiceProductTile);
 	
-	var _suppliers = __webpack_require__(82);
+	var _suppliers = __webpack_require__(87);
 	
 	var _suppliers2 = _interopRequireDefault(_suppliers);
 	
-	var _supplierTile = __webpack_require__(95);
+	var _supplierTile = __webpack_require__(92);
 	
 	var _supplierTile2 = _interopRequireDefault(_supplierTile);
 	
-	var _stock = __webpack_require__(77);
+	var _stock = __webpack_require__(95);
 	
 	var _stock2 = _interopRequireDefault(_stock);
 	
-	var _stockTile = __webpack_require__(92);
+	var _stockTile = __webpack_require__(100);
 	
 	var _stockTile2 = _interopRequireDefault(_stockTile);
 	
@@ -58446,11 +58446,11 @@
 	  value: true
 	});
 	
-	var _run = __webpack_require__(75);
+	var _run = __webpack_require__(16);
 	
 	var _run2 = _interopRequireDefault(_run);
 	
-	var _router = __webpack_require__(16);
+	var _router = __webpack_require__(17);
 	
 	var _router2 = _interopRequireDefault(_router);
 	
@@ -58463,6 +58463,22 @@
 
 /***/ },
 /* 16 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  angular.module('app').run(function (PubSub) {
+	    PubSub.initialize();
+	  });
+	};
+
+/***/ },
+/* 17 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -58493,26 +58509,6 @@
 	};
 
 /***/ },
-/* 17 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _main = __webpack_require__(18);
-	
-	var _main2 = _interopRequireDefault(_main);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = function () {
-	  (0, _main2.default)();
-	};
-
-/***/ },
 /* 18 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -58522,16 +58518,14 @@
 	  value: true
 	});
 	
-	exports.default = function () {
-	  if (false) {
-	    require('./test/main.filter.test');
-	  }
+	var _PubSub = __webpack_require__(19);
 	
-	  angular.module('app').filter('mainFilter', function () {
-	    return function (input, scope) {
-	      return true;
-	    };
-	  });
+	var _PubSub2 = _interopRequireDefault(_PubSub);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function () {
+	  (0, _PubSub2.default)();
 	};
 
 /***/ },
@@ -58544,187 +58538,55 @@
 	  value: true
 	});
 	
-	var _controller = __webpack_require__(20);
-	
-	var _controller2 = _interopRequireDefault(_controller);
-	
-	var _factory = __webpack_require__(21);
-	
-	var _factory2 = _interopRequireDefault(_factory);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
 	exports.default = function () {
-	  (0, _controller2.default)();
-	  (0, _factory2.default)();
-	};
-
-/***/ },
-/* 20 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
+	  angular.module('app.socket').factory('PubSub', PubSub);
 	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
+	  var io = __webpack_require__(20);
+	  var socket = io.connect('http://localhost:3001');
 	
-	exports.default = function () {
-	  if (false) {
-	    require('./test/main.controller.test');
-	  }
+	  function PubSub() {
+	    var container = [];
 	
-	  angular.module('app.main').controller('MainController', MainController);
-	
-	  MainController.$inject = ['$stateParams'];
-	
-	  function MainController($stateParams) {
-	    var vm = this;
-	
-	    vm.switch = function (view) {
-	      vm.view = view;
-	    };
-	
-	    vm.$onInit = function () {
-	      vm.view = $stateParams.view || 'stock';
-	    };
-	  }
-	};
-
-/***/ },
-/* 21 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	exports.default = function () {
-	  if (false) {
-	    require('./test/main.factory.test');
-	  }
-	
-	  angular.module('app.main').factory('mainFactory', mainFactory);
-	
-	  mainFactory.$inject = ['$http'];
-	
-	  function mainFactory($http) {
 	    return {
-	      mainRoute: mainRoute
+	      initialize: initialize,
+	      subscribe: subscribe,
+	      pushContainer: pushContainer,
+	      unsubscribeAll: unsubscribeAll,
+	      unsubscribe: unsubscribe
 	    };
-	    function mainRoute(data) {
-	      return $http({
-	        method: 'POST',
-	        url: '/api/main/test',
-	        data: data
-	      }).then(function (res) {
-	        return res.data;
-	      }).catch(function (err) {
-	        return err.data;
+	
+	    function initialize() {
+	      socket.on('connect', function () {
+	        console.log('User connected to socket');
 	      });
+	    }
+	
+	    function subscribe(channel, callback) {
+	      console.log(channel);
+	      this.pushContainer(channel);
+	      return socket.on(channel, callback);
+	    }
+	
+	    function pushContainer(subscriptionName) {
+	      container.push(subscriptionName);
+	    }
+	
+	    function unsubscribe(channel) {
+	      socket.removeAllListeners(channel);
+	      _.pullAt(container, channel);
+	    }
+	
+	    function unsubscribeAll() {
+	      _.each(container, function (channel) {
+	        socket.removeAllListeners(channel);
+	      });
+	      container = [];
 	    }
 	  }
 	};
 
 /***/ },
-/* 22 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _controller = __webpack_require__(23);
-	
-	var _controller2 = _interopRequireDefault(_controller);
-	
-	var _component = __webpack_require__(24);
-	
-	var _component2 = _interopRequireDefault(_component);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = function () {
-	  (0, _controller2.default)();
-	  (0, _component2.default)();
-	};
-
-/***/ },
-/* 23 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	exports.default = function () {
-	  angular.module('app.upload').controller('FileUploadController', FileUploadController);
-	
-	  FileUploadController.$inject = ['$scope', '$window', 'FileUploader'];
-	
-	  function FileUploadController($scope, $window, FileUploader) {
-	    var vm = this;
-	
-	    vm.$onInit = function () {
-	      var uploader = vm.uploader = new FileUploader({
-	        url: '/api/v1/invoice/insert',
-	        removeAfterUpload: true
-	      });
-	      uploader.filters.push({
-	        name: 'customFilter',
-	        fn: function fn() {
-	          return vm.uploader.queue.length < 10;
-	        }
-	      });
-	      uploader.onAfterAddingAll = function () {
-	        uploader.uploadAll();
-	      };
-	      uploader.onCompleteAll = function () {};
-	      vm.controller = {
-	        isJson: function isJson(item) {
-	          var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
-	          return '|json|'.indexOf(type) !== -1;
-	        }
-	      };
-	    };
-	  }
-	};
-
-/***/ },
-/* 24 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	exports.default = function () {
-	  var fileUpload = {
-	    bindings: {
-	      props: '<'
-	    },
-	    template: __webpack_require__(25),
-	    controller: 'FileUploadController as vm'
-	  };
-	  angular.module('app.upload').component('fileUpload', fileUpload);
-	};
-
-/***/ },
-/* 25 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"file-upload\">\n\n  <div ng-if=\"vm.uploader.isHTML5\" class=\"upload-div\">\n    <div nv-file-drop=\"\" uploader=\"vm.uploader\" nv-file-select=\"\">\n      <div nv-file-over=\"\" uploader=\"vm.uploader\" over-class=\"another-file-over-class\" class=\"well my-drop-zone\">\n        <h3>Drop Invoice Here</h3>\n      </div>\n    </div>\n    <input type=\"file\" nv-file-select=\"\" class=\"upload\" uploader=\"vm.uploader\" multiple/>\n  </div>\n\n  <input ng-if=\"!vm.uploader.isHTML5\" type=\"file\" nv-file-select=\"\" name=\"json\" uploader=\"vm.uploader\" multiple />\n\n  <div class=\"notf-box\" ng-class=\"vm.notification\">\n    <h5 ng-if=\"vm.notification === 'dupe'\">Duplicate Invoice</h5>\n    <h5 ng-if=\"vm.notification === 'success'\">Added Successfully!</h5>\n  </div>\n\n</div>\n"
-
-/***/ },
-/* 26 */
+/* 20 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -58732,10 +58594,10 @@
 	 * Module dependencies.
 	 */
 	
-	var url = __webpack_require__(27);
-	var parser = __webpack_require__(32);
-	var Manager = __webpack_require__(39);
-	var debug = __webpack_require__(29)('socket.io-client');
+	var url = __webpack_require__(21);
+	var parser = __webpack_require__(26);
+	var Manager = __webpack_require__(33);
+	var debug = __webpack_require__(23)('socket.io-client');
 	
 	/**
 	 * Module exports.
@@ -58834,12 +58696,12 @@
 	 * @api public
 	 */
 	
-	exports.Manager = __webpack_require__(39);
-	exports.Socket = __webpack_require__(66);
+	exports.Manager = __webpack_require__(33);
+	exports.Socket = __webpack_require__(60);
 
 
 /***/ },
-/* 27 */
+/* 21 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {
@@ -58847,8 +58709,8 @@
 	 * Module dependencies.
 	 */
 	
-	var parseuri = __webpack_require__(28);
-	var debug = __webpack_require__(29)('socket.io-client:url');
+	var parseuri = __webpack_require__(22);
+	var debug = __webpack_require__(23)('socket.io-client:url');
 	
 	/**
 	 * Module exports.
@@ -58921,7 +58783,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 28 */
+/* 22 */
 /***/ function(module, exports) {
 
 	/**
@@ -58966,7 +58828,7 @@
 
 
 /***/ },
-/* 29 */
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -58976,7 +58838,7 @@
 	 * Expose `debug()` as the module.
 	 */
 	
-	exports = module.exports = __webpack_require__(30);
+	exports = module.exports = __webpack_require__(24);
 	exports.log = log;
 	exports.formatArgs = formatArgs;
 	exports.save = save;
@@ -59140,7 +59002,7 @@
 
 
 /***/ },
-/* 30 */
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -59156,7 +59018,7 @@
 	exports.disable = disable;
 	exports.enable = enable;
 	exports.enabled = enabled;
-	exports.humanize = __webpack_require__(31);
+	exports.humanize = __webpack_require__(25);
 	
 	/**
 	 * The currently active debug mode names, and names to skip.
@@ -59343,7 +59205,7 @@
 
 
 /***/ },
-/* 31 */
+/* 25 */
 /***/ function(module, exports) {
 
 	/**
@@ -59474,7 +59336,7 @@
 
 
 /***/ },
-/* 32 */
+/* 26 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -59482,12 +59344,12 @@
 	 * Module dependencies.
 	 */
 	
-	var debug = __webpack_require__(29)('socket.io-parser');
-	var json = __webpack_require__(33);
-	var isArray = __webpack_require__(35);
-	var Emitter = __webpack_require__(36);
-	var binary = __webpack_require__(37);
-	var isBuf = __webpack_require__(38);
+	var debug = __webpack_require__(23)('socket.io-parser');
+	var json = __webpack_require__(27);
+	var isArray = __webpack_require__(29);
+	var Emitter = __webpack_require__(30);
+	var binary = __webpack_require__(31);
+	var isBuf = __webpack_require__(32);
 	
 	/**
 	 * Protocol version.
@@ -59880,14 +59742,14 @@
 
 
 /***/ },
-/* 33 */
+/* 27 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/*! JSON v3.3.2 | http://bestiejs.github.io/json3 | Copyright 2012-2014, Kit Cambridge | http://kit.mit-license.org */
 	;(function () {
 	  // Detect the `define` function exposed by asynchronous module loaders. The
 	  // strict `define` check is necessary for compatibility with `r.js`.
-	  var isLoader = "function" === "function" && __webpack_require__(34);
+	  var isLoader = "function" === "function" && __webpack_require__(28);
 	
 	  // A set of types used to distinguish objects from primitives.
 	  var objectTypes = {
@@ -60789,7 +60651,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)(module), (function() { return this; }())))
 
 /***/ },
-/* 34 */
+/* 28 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(__webpack_amd_options__) {module.exports = __webpack_amd_options__;
@@ -60797,7 +60659,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, {}))
 
 /***/ },
-/* 35 */
+/* 29 */
 /***/ function(module, exports) {
 
 	module.exports = Array.isArray || function (arr) {
@@ -60806,7 +60668,7 @@
 
 
 /***/ },
-/* 36 */
+/* 30 */
 /***/ function(module, exports) {
 
 	
@@ -60976,7 +60838,7 @@
 
 
 /***/ },
-/* 37 */
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/*global Blob,File*/
@@ -60985,8 +60847,8 @@
 	 * Module requirements
 	 */
 	
-	var isArray = __webpack_require__(35);
-	var isBuf = __webpack_require__(38);
+	var isArray = __webpack_require__(29);
+	var isBuf = __webpack_require__(32);
 	
 	/**
 	 * Replaces every Buffer | ArrayBuffer in packet with a numbered placeholder.
@@ -61124,7 +60986,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 38 */
+/* 32 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {
@@ -61144,7 +61006,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 39 */
+/* 33 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -61152,15 +61014,15 @@
 	 * Module dependencies.
 	 */
 	
-	var eio = __webpack_require__(40);
-	var Socket = __webpack_require__(66);
-	var Emitter = __webpack_require__(67);
-	var parser = __webpack_require__(32);
-	var on = __webpack_require__(69);
-	var bind = __webpack_require__(70);
-	var debug = __webpack_require__(29)('socket.io-client:manager');
-	var indexOf = __webpack_require__(64);
-	var Backoff = __webpack_require__(72);
+	var eio = __webpack_require__(34);
+	var Socket = __webpack_require__(60);
+	var Emitter = __webpack_require__(61);
+	var parser = __webpack_require__(26);
+	var on = __webpack_require__(63);
+	var bind = __webpack_require__(64);
+	var debug = __webpack_require__(23)('socket.io-client:manager');
+	var indexOf = __webpack_require__(58);
+	var Backoff = __webpack_require__(66);
 	
 	/**
 	 * IE6+ hasOwnProperty
@@ -61710,19 +61572,19 @@
 
 
 /***/ },
-/* 40 */
+/* 34 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
-	module.exports = __webpack_require__(41);
+	module.exports = __webpack_require__(35);
 
 
 /***/ },
-/* 41 */
+/* 35 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
-	module.exports = __webpack_require__(42);
+	module.exports = __webpack_require__(36);
 	
 	/**
 	 * Exports parser
@@ -61730,25 +61592,25 @@
 	 * @api public
 	 *
 	 */
-	module.exports.parser = __webpack_require__(49);
+	module.exports.parser = __webpack_require__(43);
 
 
 /***/ },
-/* 42 */
+/* 36 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
 	 * Module dependencies.
 	 */
 	
-	var transports = __webpack_require__(43);
-	var Emitter = __webpack_require__(57);
-	var debug = __webpack_require__(29)('engine.io-client:socket');
-	var index = __webpack_require__(64);
-	var parser = __webpack_require__(49);
-	var parseuri = __webpack_require__(28);
-	var parsejson = __webpack_require__(65);
-	var parseqs = __webpack_require__(58);
+	var transports = __webpack_require__(37);
+	var Emitter = __webpack_require__(51);
+	var debug = __webpack_require__(23)('engine.io-client:socket');
+	var index = __webpack_require__(58);
+	var parser = __webpack_require__(43);
+	var parseuri = __webpack_require__(22);
+	var parsejson = __webpack_require__(59);
+	var parseqs = __webpack_require__(52);
 	
 	/**
 	 * Module exports.
@@ -61864,9 +61726,9 @@
 	 */
 	
 	Socket.Socket = Socket;
-	Socket.Transport = __webpack_require__(48);
-	Socket.transports = __webpack_require__(43);
-	Socket.parser = __webpack_require__(49);
+	Socket.Transport = __webpack_require__(42);
+	Socket.transports = __webpack_require__(37);
+	Socket.parser = __webpack_require__(43);
 	
 	/**
 	 * Creates transport of the given type.
@@ -62460,17 +62322,17 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 43 */
+/* 37 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
 	 * Module dependencies
 	 */
 	
-	var XMLHttpRequest = __webpack_require__(44);
-	var XHR = __webpack_require__(46);
-	var JSONP = __webpack_require__(61);
-	var websocket = __webpack_require__(62);
+	var XMLHttpRequest = __webpack_require__(38);
+	var XHR = __webpack_require__(40);
+	var JSONP = __webpack_require__(55);
+	var websocket = __webpack_require__(56);
 	
 	/**
 	 * Export transports.
@@ -62520,7 +62382,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 44 */
+/* 38 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// browser shim for xmlhttprequest module
@@ -62528,7 +62390,7 @@
 	// Indicate to eslint that ActiveXObject is global
 	/* global ActiveXObject */
 	
-	var hasCORS = __webpack_require__(45);
+	var hasCORS = __webpack_require__(39);
 	
 	module.exports = function (opts) {
 	  var xdomain = opts.xdomain;
@@ -62566,7 +62428,7 @@
 
 
 /***/ },
-/* 45 */
+/* 39 */
 /***/ function(module, exports) {
 
 	
@@ -62589,18 +62451,18 @@
 
 
 /***/ },
-/* 46 */
+/* 40 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
 	 * Module requirements.
 	 */
 	
-	var XMLHttpRequest = __webpack_require__(44);
-	var Polling = __webpack_require__(47);
-	var Emitter = __webpack_require__(57);
-	var inherit = __webpack_require__(59);
-	var debug = __webpack_require__(29)('engine.io-client:polling-xhr');
+	var XMLHttpRequest = __webpack_require__(38);
+	var Polling = __webpack_require__(41);
+	var Emitter = __webpack_require__(51);
+	var inherit = __webpack_require__(53);
+	var debug = __webpack_require__(23)('engine.io-client:polling-xhr');
 	
 	/**
 	 * Module exports.
@@ -63008,19 +62870,19 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 47 */
+/* 41 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module dependencies.
 	 */
 	
-	var Transport = __webpack_require__(48);
-	var parseqs = __webpack_require__(58);
-	var parser = __webpack_require__(49);
-	var inherit = __webpack_require__(59);
-	var yeast = __webpack_require__(60);
-	var debug = __webpack_require__(29)('engine.io-client:polling');
+	var Transport = __webpack_require__(42);
+	var parseqs = __webpack_require__(52);
+	var parser = __webpack_require__(43);
+	var inherit = __webpack_require__(53);
+	var yeast = __webpack_require__(54);
+	var debug = __webpack_require__(23)('engine.io-client:polling');
 	
 	/**
 	 * Module exports.
@@ -63033,7 +62895,7 @@
 	 */
 	
 	var hasXHR2 = (function () {
-	  var XMLHttpRequest = __webpack_require__(44);
+	  var XMLHttpRequest = __webpack_require__(38);
 	  var xhr = new XMLHttpRequest({ xdomain: false });
 	  return null != xhr.responseType;
 	})();
@@ -63259,15 +63121,15 @@
 
 
 /***/ },
-/* 48 */
+/* 42 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
 	 * Module dependencies.
 	 */
 	
-	var parser = __webpack_require__(49);
-	var Emitter = __webpack_require__(57);
+	var parser = __webpack_require__(43);
+	var Emitter = __webpack_require__(51);
 	
 	/**
 	 * Module exports.
@@ -63420,22 +63282,22 @@
 
 
 /***/ },
-/* 49 */
+/* 43 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
 	 * Module dependencies.
 	 */
 	
-	var keys = __webpack_require__(50);
-	var hasBinary = __webpack_require__(51);
-	var sliceBuffer = __webpack_require__(52);
-	var after = __webpack_require__(53);
-	var utf8 = __webpack_require__(54);
+	var keys = __webpack_require__(44);
+	var hasBinary = __webpack_require__(45);
+	var sliceBuffer = __webpack_require__(46);
+	var after = __webpack_require__(47);
+	var utf8 = __webpack_require__(48);
 	
 	var base64encoder;
 	if (global.ArrayBuffer) {
-	  base64encoder = __webpack_require__(55);
+	  base64encoder = __webpack_require__(49);
 	}
 	
 	/**
@@ -63493,7 +63355,7 @@
 	 * Create a blob api even for blob builder when vendor prefixes exist
 	 */
 	
-	var Blob = __webpack_require__(56);
+	var Blob = __webpack_require__(50);
 	
 	/**
 	 * Encodes a packet.
@@ -64033,7 +63895,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 50 */
+/* 44 */
 /***/ function(module, exports) {
 
 	
@@ -64058,7 +63920,7 @@
 
 
 /***/ },
-/* 51 */
+/* 45 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {
@@ -64066,7 +63928,7 @@
 	 * Module requirements.
 	 */
 	
-	var isArray = __webpack_require__(35);
+	var isArray = __webpack_require__(29);
 	
 	/**
 	 * Module exports.
@@ -64123,7 +63985,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 52 */
+/* 46 */
 /***/ function(module, exports) {
 
 	/**
@@ -64158,7 +64020,7 @@
 
 
 /***/ },
-/* 53 */
+/* 47 */
 /***/ function(module, exports) {
 
 	module.exports = after
@@ -64192,7 +64054,7 @@
 
 
 /***/ },
-/* 54 */
+/* 48 */
 /***/ function(module, exports, __webpack_require__) {
 
 	var __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module, global) {/*! https://mths.be/wtf8 v1.0.0 by @mathias */
@@ -64431,7 +64293,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(6)(module), (function() { return this; }())))
 
 /***/ },
-/* 55 */
+/* 49 */
 /***/ function(module, exports) {
 
 	/*
@@ -64504,7 +64366,7 @@
 
 
 /***/ },
-/* 56 */
+/* 50 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -64607,7 +64469,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 57 */
+/* 51 */
 /***/ function(module, exports) {
 
 	
@@ -64777,7 +64639,7 @@
 
 
 /***/ },
-/* 58 */
+/* 52 */
 /***/ function(module, exports) {
 
 	/**
@@ -64820,7 +64682,7 @@
 
 
 /***/ },
-/* 59 */
+/* 53 */
 /***/ function(module, exports) {
 
 	
@@ -64832,7 +64694,7 @@
 	};
 
 /***/ },
-/* 60 */
+/* 54 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -64906,7 +64768,7 @@
 
 
 /***/ },
-/* 61 */
+/* 55 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {
@@ -64914,8 +64776,8 @@
 	 * Module requirements.
 	 */
 	
-	var Polling = __webpack_require__(47);
-	var inherit = __webpack_require__(59);
+	var Polling = __webpack_require__(41);
+	var inherit = __webpack_require__(53);
 	
 	/**
 	 * Module exports.
@@ -65144,19 +65006,19 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 62 */
+/* 56 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
 	 * Module dependencies.
 	 */
 	
-	var Transport = __webpack_require__(48);
-	var parser = __webpack_require__(49);
-	var parseqs = __webpack_require__(58);
-	var inherit = __webpack_require__(59);
-	var yeast = __webpack_require__(60);
-	var debug = __webpack_require__(29)('engine.io-client:websocket');
+	var Transport = __webpack_require__(42);
+	var parser = __webpack_require__(43);
+	var parseqs = __webpack_require__(52);
+	var inherit = __webpack_require__(53);
+	var yeast = __webpack_require__(54);
+	var debug = __webpack_require__(23)('engine.io-client:websocket');
 	var BrowserWebSocket = global.WebSocket || global.MozWebSocket;
 	
 	/**
@@ -65168,7 +65030,7 @@
 	var WebSocket = BrowserWebSocket;
 	if (!WebSocket && typeof window === 'undefined') {
 	  try {
-	    WebSocket = __webpack_require__(63);
+	    WebSocket = __webpack_require__(57);
 	  } catch (e) { }
 	}
 	
@@ -65442,13 +65304,13 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 63 */
+/* 57 */
 /***/ function(module, exports) {
 
 	/* (ignored) */
 
 /***/ },
-/* 64 */
+/* 58 */
 /***/ function(module, exports) {
 
 	
@@ -65463,7 +65325,7 @@
 	};
 
 /***/ },
-/* 65 */
+/* 59 */
 /***/ function(module, exports) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {/**
@@ -65501,7 +65363,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 66 */
+/* 60 */
 /***/ function(module, exports, __webpack_require__) {
 
 	
@@ -65509,13 +65371,13 @@
 	 * Module dependencies.
 	 */
 	
-	var parser = __webpack_require__(32);
-	var Emitter = __webpack_require__(67);
-	var toArray = __webpack_require__(68);
-	var on = __webpack_require__(69);
-	var bind = __webpack_require__(70);
-	var debug = __webpack_require__(29)('socket.io-client:socket');
-	var hasBin = __webpack_require__(71);
+	var parser = __webpack_require__(26);
+	var Emitter = __webpack_require__(61);
+	var toArray = __webpack_require__(62);
+	var on = __webpack_require__(63);
+	var bind = __webpack_require__(64);
+	var debug = __webpack_require__(23)('socket.io-client:socket');
+	var hasBin = __webpack_require__(65);
 	
 	/**
 	 * Module exports.
@@ -65926,7 +65788,7 @@
 
 
 /***/ },
-/* 67 */
+/* 61 */
 /***/ function(module, exports) {
 
 	
@@ -66093,7 +65955,7 @@
 
 
 /***/ },
-/* 68 */
+/* 62 */
 /***/ function(module, exports) {
 
 	module.exports = toArray
@@ -66112,7 +65974,7 @@
 
 
 /***/ },
-/* 69 */
+/* 63 */
 /***/ function(module, exports) {
 
 	
@@ -66142,7 +66004,7 @@
 
 
 /***/ },
-/* 70 */
+/* 64 */
 /***/ function(module, exports) {
 
 	/**
@@ -66171,7 +66033,7 @@
 
 
 /***/ },
-/* 71 */
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/* WEBPACK VAR INJECTION */(function(global) {
@@ -66179,7 +66041,7 @@
 	 * Module requirements.
 	 */
 	
-	var isArray = __webpack_require__(35);
+	var isArray = __webpack_require__(29);
 	
 	/**
 	 * Module exports.
@@ -66237,7 +66099,7 @@
 	/* WEBPACK VAR INJECTION */}.call(exports, (function() { return this; }())))
 
 /***/ },
-/* 72 */
+/* 66 */
 /***/ function(module, exports) {
 
 	
@@ -66328,7 +66190,7 @@
 
 
 /***/ },
-/* 73 */
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -66337,19 +66199,159 @@
 	  value: true
 	});
 	
-	var _PubSub = __webpack_require__(76);
+	var _main = __webpack_require__(68);
 	
-	var _PubSub2 = _interopRequireDefault(_PubSub);
+	var _main2 = _interopRequireDefault(_main);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = function () {
-	  (0, _PubSub2.default)();
+	  (0, _main2.default)();
 	};
 
 /***/ },
-/* 74 */,
-/* 75 */
+/* 68 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  if (false) {
+	    require('./test/main.filter.test');
+	  }
+	
+	  angular.module('app').filter('mainFilter', function () {
+	    return function (input, scope) {
+	      return true;
+	    };
+	  });
+	};
+
+/***/ },
+/* 69 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _controller = __webpack_require__(70);
+	
+	var _controller2 = _interopRequireDefault(_controller);
+	
+	var _factory = __webpack_require__(71);
+	
+	var _factory2 = _interopRequireDefault(_factory);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function () {
+	  (0, _controller2.default)();
+	  (0, _factory2.default)();
+	};
+
+/***/ },
+/* 70 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  if (false) {
+	    require('./test/main.controller.test');
+	  }
+	
+	  angular.module('app.main').controller('MainController', MainController);
+	
+	  MainController.$inject = ['$stateParams'];
+	
+	  function MainController($stateParams) {
+	    var vm = this;
+	
+	    vm.switch = function (view) {
+	      vm.view = view;
+	    };
+	
+	    vm.$onInit = function () {
+	      vm.view = $stateParams.view || 'stock';
+	    };
+	  }
+	};
+
+/***/ },
+/* 71 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  if (false) {
+	    require('./test/main.factory.test');
+	  }
+	
+	  angular.module('app.main').factory('mainFactory', mainFactory);
+	
+	  mainFactory.$inject = ['$http'];
+	
+	  function mainFactory($http) {
+	    return {
+	      mainRoute: mainRoute
+	    };
+	    function mainRoute(data) {
+	      return $http({
+	        method: 'POST',
+	        url: '/api/main/test',
+	        data: data
+	      }).then(function (res) {
+	        return res.data;
+	      }).catch(function (err) {
+	        return err.data;
+	      });
+	    }
+	  }
+	};
+
+/***/ },
+/* 72 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _controller = __webpack_require__(73);
+	
+	var _controller2 = _interopRequireDefault(_controller);
+	
+	var _component = __webpack_require__(74);
+	
+	var _component2 = _interopRequireDefault(_component);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function () {
+	  (0, _controller2.default)();
+	  (0, _component2.default)();
+	};
+
+/***/ },
+/* 73 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -66359,10 +66361,64 @@
 	});
 	
 	exports.default = function () {
-	  angular.module('app').run(function (PubSub) {
-	    PubSub.initialize();
-	  });
+	  angular.module('app.upload').controller('FileUploadController', FileUploadController);
+	
+	  FileUploadController.$inject = ['$scope', '$window', '$timeout', 'FileUploader'];
+	
+	  function FileUploadController($scope, $window, $timeout, FileUploader) {
+	    var vm = this;
+	
+	    vm.$onInit = function () {
+	      var uploader = vm.uploader = new FileUploader({
+	        url: '/api/v1/invoice/insert',
+	        removeAfterUpload: true
+	      });
+	      uploader.onAfterAddingAll = function () {
+	        uploader.uploadAll();
+	      };
+	      uploader.onCompleteItem = function (fileItem, response) {
+	        console.info(response);
+	        vm.notification = response;
+	        $timeout(function () {
+	          vm.notification = null;
+	        }, 2000);
+	      };
+	      vm.controller = {
+	        isJson: function isJson(item) {
+	          var type = '|' + item.type.slice(item.type.lastIndexOf('/') + 1) + '|';
+	          return '|json|'.indexOf(type) !== -1;
+	        }
+	      };
+	    };
+	  }
 	};
+
+/***/ },
+/* 74 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  var fileUpload = {
+	    bindings: {
+	      props: '<'
+	    },
+	    template: __webpack_require__(75),
+	    controller: 'FileUploadController as vm'
+	  };
+	  angular.module('app.upload').component('fileUpload', fileUpload);
+	};
+
+/***/ },
+/* 75 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"file-upload\">\n\n  <div ng-if=\"vm.uploader.isHTML5\" class=\"upload-div\">\n    <div nv-file-drop=\"\" uploader=\"vm.uploader\" nv-file-select=\"\">\n      <div nv-file-over=\"\" uploader=\"vm.uploader\" over-class=\"another-file-over-class\" class=\"well my-drop-zone\">\n        <h3>Drop Invoice Here</h3>\n      </div>\n    </div>\n    <input type=\"file\" nv-file-select=\"\" class=\"upload\" uploader=\"vm.uploader\" multiple/>\n  </div>\n\n  <input ng-if=\"!vm.uploader.isHTML5\" type=\"file\" nv-file-select=\"\" name=\"json\" uploader=\"vm.uploader\" multiple />\n\n  <div class=\"notif-box\" ng-class=\"vm.notification\">\n    <h5 ng-if=\"vm.notification === 'dupe'\">Duplicate Invoice</h5>\n    <h5 ng-if=\"vm.notification === 'invalid'\">Invalid Document</h5>\n    <h5 ng-if=\"vm.notification === 'success'\">Added Successfully!</h5>\n  </div>\n\n</div>\n"
 
 /***/ },
 /* 76 */
@@ -66374,72 +66430,15 @@
 	  value: true
 	});
 	
-	exports.default = function () {
-	  angular.module('app.socket').factory('PubSub', PubSub);
-	
-	  var io = __webpack_require__(26);
-	  var socket = io.connect('http://localhost:3001');
-	
-	  function PubSub() {
-	    var container = [];
-	
-	    return {
-	      initialize: initialize,
-	      subscribe: subscribe,
-	      pushContainer: pushContainer,
-	      unsubscribeAll: unsubscribeAll,
-	      unsubscribe: unsubscribe
-	    };
-	
-	    function initialize() {
-	      socket.on('connect', function () {
-	        console.log('User connected to socket');
-	      });
-	    }
-	
-	    function subscribe(channel, callback) {
-	      console.log(channel);
-	      this.pushContainer(channel);
-	      return socket.on(channel, callback);
-	    }
-	
-	    function pushContainer(subscriptionName) {
-	      container.push(subscriptionName);
-	    }
-	
-	    function unsubscribe(channel) {
-	      socket.removeAllListeners(channel);
-	      _.pullAt(container, channel);
-	    }
-	
-	    function unsubscribeAll() {
-	      _.each(container, function (channel) {
-	        socket.removeAllListeners(channel);
-	      });
-	      container = [];
-	    }
-	  }
-	};
-
-/***/ },
-/* 77 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _controller = __webpack_require__(78);
+	var _controller = __webpack_require__(77);
 	
 	var _controller2 = _interopRequireDefault(_controller);
 	
-	var _component = __webpack_require__(79);
+	var _component = __webpack_require__(78);
 	
 	var _component2 = _interopRequireDefault(_component);
 	
-	var _factory = __webpack_require__(81);
+	var _factory = __webpack_require__(80);
 	
 	var _factory2 = _interopRequireDefault(_factory);
 	
@@ -66452,7 +66451,7 @@
 	};
 
 /***/ },
-/* 78 */
+/* 77 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -66462,35 +66461,36 @@
 	});
 	
 	exports.default = function () {
-	  angular.module('app.stock').controller('StockController', StockController);
+	  angular.module('app.invoices').controller('InvoicesController', InvoicesController);
 	
-	  StockController.$inject = ['PubSub', 'stockFactory'];
+	  InvoicesController.$inject = ['$scope', 'PubSub', 'invoicesFactory'];
 	
-	  function StockController(PubSub, stockFactory) {
+	  function InvoicesController($scope, PubSub, invoicesFactory) {
 	    var vm = this;
 	
 	    vm.$onInit = function () {
-	      vm.stock = [];
-	      PubSub.subscribe('stock', function (data) {
+	      vm.invoices = [];
+	      PubSub.subscribe('invoices', function (data) {
 	        var find = false;
-	        _.find(vm.stock, function (obj, key) {
-	          if (obj.product_id === data.product_id) {
-	            vm.stock[key] = data;
+	        _.find(vm.invoices, function (obj, key) {
+	          if (obj.invoice_number === data.invoice_number) {
+	            console.log(data);
+	            vm.invoices[key] = data;
 	            find = true;
 	          }
 	        });
-	        if (!find) vm.stock.push(data);
+	        if (!find) vm.invoices.push(data);
+	        $scope.$digest();
 	      });
-	      stockFactory.fetchAll().then(function (res) {
-	        if (res.length > 0) res = _.reverse(res);
-	        vm.stock = res;
+	      invoicesFactory.fetchAll().then(function (res) {
+	        vm.invoices = res;
 	      });
 	    };
 	  }
 	};
 
 /***/ },
-/* 79 */
+/* 78 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -66500,24 +66500,24 @@
 	});
 	
 	exports.default = function () {
-	  var stock = {
+	  var invoices = {
 	    bindings: {
 	      props: '<'
 	    },
-	    template: __webpack_require__(80),
-	    controller: 'StockController as vm'
+	    template: __webpack_require__(79),
+	    controller: 'InvoicesController as vm'
 	  };
-	  angular.module('app.stock').component('stock', stock);
+	  angular.module('app.invoices').component('invoices', invoices);
 	};
 
 /***/ },
-/* 80 */
+/* 79 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"stock\">\n\n  <h2>Stock</h2>\n\n  <div class=\"header\">\n    <h5>Product ID</h5>\n    <h5>Product Name</h5>\n    <h5>Cost Price</h5>\n    <h5>Sale Price</h5>\n    <h5>Units</h5>\n  </div>\n\n  <div ng-repeat=\"product in vm.stock\">\n    <stock-tile props=\"product\" index=\"$index\"></stock-tile>\n  </div>\n\n</div>\n"
+	module.exports = "<div class=\"invoices\">\n\n  <h2>Invoices</h2>\n\n  <div class=\"header\">\n    <h5>Invoice Number</h5>\n    <h5>Number of Products</h5>\n    <h5>Supplier</h5>\n    <h5>Total</h5>\n  </div>\n\n  <div ng-repeat=\"invoice in vm.invoices\">\n    <invoice-tile props=\"invoice\" index=\"$index\"></invoice-tile>\n  </div>\n\n</div>\n"
 
 /***/ },
-/* 81 */
+/* 80 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -66527,18 +66527,18 @@
 	});
 	
 	exports.default = function () {
-	  angular.module('app.stock').factory('stockFactory', stockFactory);
+	  angular.module('app.invoices').factory('invoicesFactory', invoicesFactory);
 	
-	  stockFactory.$inject = ['$http'];
+	  invoicesFactory.$inject = ['$http'];
 	
-	  function stockFactory($http) {
+	  function invoicesFactory($http) {
 	    return {
 	      fetchAll: fetchAll
 	    };
 	    function fetchAll(data) {
 	      return $http({
 	        method: 'POST',
-	        url: '/api/v1/stock/fetch-all',
+	        url: '/api/v1/invoices/fetch-all',
 	        data: data
 	      }).then(function (res) {
 	        return res.data;
@@ -66547,6 +66547,26 @@
 	      });
 	    }
 	  }
+	};
+
+/***/ },
+/* 81 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _component = __webpack_require__(82);
+	
+	var _component2 = _interopRequireDefault(_component);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function () {
+	  (0, _component2.default)();
 	};
 
 /***/ },
@@ -66559,15 +66579,98 @@
 	  value: true
 	});
 	
-	var _controller = __webpack_require__(83);
+	exports.default = function () {
+	  var invoiceTile = {
+	    bindings: {
+	      props: '<',
+	      index: '<'
+	    },
+	    controller: function controller() {
+	      var vm = this;
+	      vm.$onInit = function () {
+	        vm.showProducts = false;
+	      };
+	      vm.showProductsToggle = function () {
+	        vm.showProducts = !vm.showProducts;
+	      };
+	    },
+	    template: __webpack_require__(83)
+	  };
+	  angular.module('app.invoices').component('invoiceTile', invoiceTile);
+	};
+
+/***/ },
+/* 83 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"invoice-tile\" ng-class=\"$ctrl.index % 2 !== 0 ? 'even': ''\">\n\n  <div class=\"data-row\">\n    <div ng-click=\"$ctrl.showProductsToggle()\">\n      {{$ctrl.props.invoice_number}}\n    </div>\n    <div>\n      {{$ctrl.props.products.length}}\n    </div>\n    <div>\n      {{$ctrl.props.supplier.supplier_name}}\n    </div>\n    <div>\n      {{$ctrl.props.subtotal | currency : '$'}}\n    </div>\n  </div>\n\n  <div ng-if=\"$ctrl.showProducts\" class=\"products\">\n\n    <div class=\"header\">\n      <h5>Product ID</h5>\n      <h5>Product Name</h5>\n      <h5>Units</h5>\n      <h5>Unit Price</h5>\n      <h5>Total</h5>\n    </div>\n\n    <div ng-repeat=\"product in $ctrl.props.products\">\n      <invoice-product-tile props=\"product\" index=\"$index\"></invoice-product-tile>\n    </div>\n  </div>\n\n</div>\n"
+
+/***/ },
+/* 84 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
 	
-	var _controller2 = _interopRequireDefault(_controller);
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
 	
-	var _component = __webpack_require__(84);
+	var _component = __webpack_require__(85);
 	
 	var _component2 = _interopRequireDefault(_component);
 	
-	var _factory = __webpack_require__(86);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	exports.default = function () {
+	  (0, _component2.default)();
+	};
+
+/***/ },
+/* 85 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  var invoiceProductTile = {
+	    bindings: {
+	      props: '<',
+	      index: '<'
+	    },
+	    template: __webpack_require__(86)
+	  };
+	  angular.module('app.invoices').component('invoiceProductTile', invoiceProductTile);
+	};
+
+/***/ },
+/* 86 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"invoice-product-tile\" ng-class=\"$ctrl.index % 2 !== 0 ? 'even': ''\">\n\n  <div class=\"data-row\">\n    <div>\n      {{$ctrl.props.product_id}}\n    </div>\n    <div>\n      {{$ctrl.props.product_name}}\n    </div>\n    <div>\n      {{$ctrl.props.units}}\n    </div>\n    <div>\n      {{$ctrl.props.unit_price | currency : '$'}}\n    </div>\n    <div>\n      {{$ctrl.props.unit_price * $ctrl.props.units | currency : '$'}}\n    </div>\n  </div>\n\n</div>\n"
+
+/***/ },
+/* 87 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _controller = __webpack_require__(88);
+	
+	var _controller2 = _interopRequireDefault(_controller);
+	
+	var _component = __webpack_require__(89);
+	
+	var _component2 = _interopRequireDefault(_component);
+	
+	var _factory = __webpack_require__(91);
 	
 	var _factory2 = _interopRequireDefault(_factory);
 	
@@ -66580,7 +66683,7 @@
 	};
 
 /***/ },
-/* 83 */
+/* 88 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -66618,7 +66721,7 @@
 	};
 
 /***/ },
-/* 84 */
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -66632,20 +66735,20 @@
 	    bindings: {
 	      props: '<'
 	    },
-	    template: __webpack_require__(85),
+	    template: __webpack_require__(90),
 	    controller: 'SuppliersController as vm'
 	  };
 	  angular.module('app.suppliers').component('suppliers', suppliers);
 	};
 
 /***/ },
-/* 85 */
+/* 90 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"suppliers\">\n\n  <h2>Suppliers</h2>\n\n  <div class=\"header\">\n    <h5>Supplier ID</h5>\n    <h5>Supplier Name</h5>\n  </div>\n\n  <div ng-repeat=\"supplier in vm.suppliers\">\n    <supplier-tile props=\"supplier\" index=\"$index\"></supplier-tile>\n  </div>\n\n</div>\n"
 
 /***/ },
-/* 86 */
+/* 91 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -66690,135 +66793,6 @@
 	};
 
 /***/ },
-/* 87 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _controller = __webpack_require__(88);
-	
-	var _controller2 = _interopRequireDefault(_controller);
-	
-	var _component = __webpack_require__(89);
-	
-	var _component2 = _interopRequireDefault(_component);
-	
-	var _factory = __webpack_require__(91);
-	
-	var _factory2 = _interopRequireDefault(_factory);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	exports.default = function () {
-	  (0, _controller2.default)();
-	  (0, _component2.default)();
-	  (0, _factory2.default)();
-	};
-
-/***/ },
-/* 88 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	exports.default = function () {
-	  angular.module('app.invoices').controller('InvoicesController', InvoicesController);
-	
-	  InvoicesController.$inject = ['$scope', 'PubSub', 'invoicesFactory'];
-	
-	  function InvoicesController($scope, PubSub, invoicesFactory) {
-	    var vm = this;
-	
-	    vm.$onInit = function () {
-	      vm.invoices = [];
-	      PubSub.subscribe('invoices', function (data) {
-	        var find = false;
-	        _.find(vm.invoices, function (obj, key) {
-	          if (obj.invoice_number === data.invoice_number) {
-	            console.log(data);
-	            vm.invoices[key] = data;
-	            find = true;
-	          }
-	        });
-	        if (!find) vm.invoices.push(data);
-	        $scope.$digest();
-	      });
-	      invoicesFactory.fetchAll().then(function (res) {
-	        vm.invoices = res;
-	      });
-	    };
-	  }
-	};
-
-/***/ },
-/* 89 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	exports.default = function () {
-	  var invoices = {
-	    bindings: {
-	      props: '<'
-	    },
-	    template: __webpack_require__(90),
-	    controller: 'InvoicesController as vm'
-	  };
-	  angular.module('app.invoices').component('invoices', invoices);
-	};
-
-/***/ },
-/* 90 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"invoices\">\n\n  <h2>Invoices</h2>\n\n  <div class=\"header\">\n    <h5>Invoice Number</h5>\n    <h5>Number of Products</h5>\n    <h5>Supplier</h5>\n    <h5>Total</h5>\n  </div>\n\n  <div ng-repeat=\"invoice in vm.invoices\">\n    <invoice-tile props=\"invoice\" index=\"$index\"></invoice-tile>\n  </div>\n\n</div>\n"
-
-/***/ },
-/* 91 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	exports.default = function () {
-	  angular.module('app.invoices').factory('invoicesFactory', invoicesFactory);
-	
-	  invoicesFactory.$inject = ['$http'];
-	
-	  function invoicesFactory($http) {
-	    return {
-	      fetchAll: fetchAll
-	    };
-	    function fetchAll(data) {
-	      return $http({
-	        method: 'POST',
-	        url: '/api/v1/invoices/fetch-all',
-	        data: data
-	      }).then(function (res) {
-	        return res.data;
-	      }).catch(function (err) {
-	        return err.data;
-	      });
-	    }
-	  }
-	};
-
-/***/ },
 /* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -66849,21 +66823,21 @@
 	});
 	
 	exports.default = function () {
-	  var stockTile = {
+	  var supplierTile = {
 	    bindings: {
 	      props: '<',
 	      index: '<'
 	    },
 	    template: __webpack_require__(94)
 	  };
-	  angular.module('app.stock').component('stockTile', stockTile);
+	  angular.module('app.suppliers').component('supplierTile', supplierTile);
 	};
 
 /***/ },
 /* 94 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"stock-tile\" ng-class=\"$ctrl.index % 2 !== 0 ? 'even': ''\">\n\n  <div class=\"data-row\">\n    <div>\n      {{$ctrl.props.product_id}}\n    </div>\n    <div>\n      {{$ctrl.props.product_name}}\n    </div>\n    <div>\n      {{$ctrl.props.cost_price | currency : '$'}}\n    </div>\n    <div>\n      {{$ctrl.props.sale_price | currency : '$'}}\n    </div>\n    <div>\n      {{$ctrl.props.units}}\n    </div>\n  </div>\n\n</div>\n"
+	module.exports = "<div class=\"supplier-tile\" ng-class=\"$ctrl.index % 2 !== 0 ? 'even': ''\">\n\n  <div class=\"data-row\">\n    <div>\n      {{$ctrl.props.supplier_id}}\n    </div>\n    <div>\n      {{$ctrl.props.supplier_name}}\n    </div>\n  </div>\n\n</div>\n"
 
 /***/ },
 /* 95 */
@@ -66875,18 +66849,66 @@
 	  value: true
 	});
 	
-	var _component = __webpack_require__(96);
+	var _controller = __webpack_require__(96);
+	
+	var _controller2 = _interopRequireDefault(_controller);
+	
+	var _component = __webpack_require__(97);
 	
 	var _component2 = _interopRequireDefault(_component);
+	
+	var _factory = __webpack_require__(99);
+	
+	var _factory2 = _interopRequireDefault(_factory);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	exports.default = function () {
+	  (0, _controller2.default)();
 	  (0, _component2.default)();
+	  (0, _factory2.default)();
 	};
 
 /***/ },
 /* 96 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  angular.module('app.stock').controller('StockController', StockController);
+	
+	  StockController.$inject = ['PubSub', 'stockFactory'];
+	
+	  function StockController(PubSub, stockFactory) {
+	    var vm = this;
+	
+	    vm.$onInit = function () {
+	      vm.stock = [];
+	      PubSub.subscribe('stock', function (data) {
+	        var find = false;
+	        _.find(vm.stock, function (obj, key) {
+	          if (obj.product_id === data.product_id) {
+	            vm.stock[key] = data;
+	            find = true;
+	          }
+	        });
+	        if (!find) vm.stock.push(data);
+	      });
+	      stockFactory.fetchAll().then(function (res) {
+	        if (res.length > 0) res = _.reverse(res);
+	        vm.stock = res;
+	      });
+	    };
+	  }
+	};
+
+/***/ },
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -66896,24 +66918,57 @@
 	});
 	
 	exports.default = function () {
-	  var supplierTile = {
+	  var stock = {
 	    bindings: {
-	      props: '<',
-	      index: '<'
+	      props: '<'
 	    },
-	    template: __webpack_require__(97)
+	    template: __webpack_require__(98),
+	    controller: 'StockController as vm'
 	  };
-	  angular.module('app.suppliers').component('supplierTile', supplierTile);
+	  angular.module('app.stock').component('stock', stock);
 	};
 
 /***/ },
-/* 97 */
+/* 98 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"supplier-tile\" ng-class=\"$ctrl.index % 2 !== 0 ? 'even': ''\">\n\n  <div class=\"data-row\">\n    <div>\n      {{$ctrl.props.supplier_id}}\n    </div>\n    <div>\n      {{$ctrl.props.supplier_name}}\n    </div>\n  </div>\n\n</div>\n"
+	module.exports = "<div class=\"stock\">\n\n  <h2>Stock</h2>\n\n  <div class=\"header\">\n    <h5>Product ID</h5>\n    <h5>Product Name</h5>\n    <h5>Cost Price</h5>\n    <h5>Sale Price</h5>\n    <h5>Units</h5>\n  </div>\n\n  <div ng-repeat=\"product in vm.stock\">\n    <stock-tile props=\"product\" index=\"$index\"></stock-tile>\n  </div>\n\n</div>\n"
 
 /***/ },
-/* 98 */
+/* 99 */
+/***/ function(module, exports) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	exports.default = function () {
+	  angular.module('app.stock').factory('stockFactory', stockFactory);
+	
+	  stockFactory.$inject = ['$http'];
+	
+	  function stockFactory($http) {
+	    return {
+	      fetchAll: fetchAll
+	    };
+	    function fetchAll(data) {
+	      return $http({
+	        method: 'POST',
+	        url: '/api/v1/stock/fetch-all',
+	        data: data
+	      }).then(function (res) {
+	        return res.data;
+	      }).catch(function (err) {
+	        return err.data;
+	      });
+	    }
+	  }
+	};
+
+/***/ },
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -66922,7 +66977,7 @@
 	  value: true
 	});
 	
-	var _component = __webpack_require__(99);
+	var _component = __webpack_require__(101);
 	
 	var _component2 = _interopRequireDefault(_component);
 	
@@ -66931,42 +66986,6 @@
 	exports.default = function () {
 	  (0, _component2.default)();
 	};
-
-/***/ },
-/* 99 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	exports.default = function () {
-	  var invoiceTile = {
-	    bindings: {
-	      props: '<',
-	      index: '<'
-	    },
-	    controller: function controller() {
-	      var vm = this;
-	      vm.$onInit = function () {
-	        vm.showProducts = false;
-	      };
-	      vm.showProductsToggle = function () {
-	        vm.showProducts = !vm.showProducts;
-	      };
-	    },
-	    template: __webpack_require__(100)
-	  };
-	  angular.module('app.invoices').component('invoiceTile', invoiceTile);
-	};
-
-/***/ },
-/* 100 */
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"invoice-tile\" ng-class=\"$ctrl.index % 2 !== 0 ? 'even': ''\">\n\n  <div class=\"data-row\">\n    <div ng-click=\"$ctrl.showProductsToggle()\">\n      {{$ctrl.props.invoice_number}}\n    </div>\n    <div>\n      {{$ctrl.props.products.length}}\n    </div>\n    <div>\n      {{$ctrl.props.supplier.supplier_name}}\n    </div>\n    <div>\n      {{$ctrl.props.subtotal | currency : '$'}}\n    </div>\n  </div>\n\n  <div ng-if=\"$ctrl.showProducts\" class=\"products\">\n\n    <div class=\"header\">\n      <h5>Product ID</h5>\n      <h5>Product Name</h5>\n      <h5>Units</h5>\n      <h5>Unit Price</h5>\n      <h5>Total</h5>\n    </div>\n\n    <div ng-repeat=\"product in $ctrl.props.products\">\n      <invoice-product-tile props=\"product\" index=\"$index\"></invoice-product-tile>\n    </div>\n  </div>\n\n</div>\n"
 
 /***/ },
 /* 101 */
@@ -66978,42 +66997,22 @@
 	  value: true
 	});
 	
-	var _component = __webpack_require__(102);
-	
-	var _component2 = _interopRequireDefault(_component);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
 	exports.default = function () {
-	  (0, _component2.default)();
-	};
-
-/***/ },
-/* 102 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	exports.default = function () {
-	  var invoiceProductTile = {
+	  var stockTile = {
 	    bindings: {
 	      props: '<',
 	      index: '<'
 	    },
-	    template: __webpack_require__(103)
+	    template: __webpack_require__(102)
 	  };
-	  angular.module('app.invoices').component('invoiceProductTile', invoiceProductTile);
+	  angular.module('app.stock').component('stockTile', stockTile);
 	};
 
 /***/ },
-/* 103 */
+/* 102 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"invoice-product-tile\" ng-class=\"$ctrl.index % 2 !== 0 ? 'even': ''\">\n\n  <div class=\"data-row\">\n    <div>\n      {{$ctrl.props.product_id}}\n    </div>\n    <div>\n      {{$ctrl.props.product_name}}\n    </div>\n    <div>\n      {{$ctrl.props.units}}\n    </div>\n    <div>\n      {{$ctrl.props.unit_price | currency : '$'}}\n    </div>\n    <div>\n      {{$ctrl.props.unit_price * $ctrl.props.units | currency : '$'}}\n    </div>\n  </div>\n\n</div>\n"
+	module.exports = "<div class=\"stock-tile\" ng-class=\"$ctrl.index % 2 !== 0 ? 'even': ''\">\n\n  <div class=\"data-row\">\n    <div>\n      {{$ctrl.props.product_id}}\n    </div>\n    <div>\n      {{$ctrl.props.product_name}}\n    </div>\n    <div>\n      {{$ctrl.props.cost_price | currency : '$'}}\n    </div>\n    <div>\n      {{$ctrl.props.sale_price | currency : '$'}}\n    </div>\n    <div>\n      {{$ctrl.props.units}}\n    </div>\n  </div>\n\n</div>\n"
 
 /***/ }
 /******/ ]);
