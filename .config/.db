@@ -1,4 +1,4 @@
-s -lsa'use strict'
+'use strict'
 
 module.exports = {
   rethinkdb: {

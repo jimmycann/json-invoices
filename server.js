@@ -19,7 +19,7 @@ const io = global.io = require('socket.io')(Server)
 io.on('connection', () => {
   console.log('New client connected to socket')
 })
-io.listen(process.env.SOCKET_PORT || 3001)
+io.listen(Server)
 
 // Import API keys, port etc. that are unique to your application
 require('./.config/.env')
