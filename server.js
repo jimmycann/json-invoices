@@ -19,7 +19,6 @@ const io = global.io = require('socket.io')(Server)
 io.on('connection', () => {
   console.log('New client connected to socket')
 })
-io.listen(Server)
 
 // Import API keys, port etc. that are unique to your application
 require('./.config/.env')
@@ -63,7 +62,8 @@ app.use(express.static(path.join(__dirname, '/public')))
 require('./routes/index.js')(app, router)
 
 // Initialize the app ===============================================
-app.listen(port)
+Server.listen(3000)
+
 // Log successful start of your app
 console.log('Now available at localhost:' + port)
 // Expose the app
