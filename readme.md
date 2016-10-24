@@ -1,14 +1,18 @@
-# Node Angular Seed
+# A Code Challenge for parsing JSON
 
-Another MEAN seed app with Webpack
+A lightweight app for parsing and invoice in JSON format and updating a database.
+
+1. Drag and drop a valid JSON invoice into the box.
+2. File is uploaded to the server, parsed recorded to the database and emitted on the socket
+3. All users receive real-time update
 
 ## Tools
 - Angular (ES6)
 - Express
+- Socket.io
 - Webpack
 - Gulp
 - SASS
-- Karma (Jasmine/Chai)
 
 ## Dependencies
 
@@ -20,33 +24,22 @@ Another MEAN seed app with Webpack
 
 For development tools and building:
 
-2. Run `npm install` within the project root directory in Terminal.
-3. Change directory `cd ./public` and run `npm install ` again for the client side dependencies.
+2. Run `yarn` or `npm install` within the project root directory in Terminal.
+3. Change directory `cd ./public` and run `yarn` or `npm install` again for the client side dependencies.
 4. Back to project root `cd ../`
 5. Run `npm start:dev` to start the server.
 6. Run `npm run build:watch` to run webpack and watch for changes.
 6. Run `npm test` to run Karma tests and watch for changes.
 7. Run `gulp build:watch` to process our stylesheets. Webpack also sees there changes and modifies the bundle.
 
-## e2e testing with Protractor
-
-From the project root run `protractor ./e2e/protractor.conf.js`
-
-In order to run Protractor tests you'll need to have the `protractor` command available on your PATH. 
-Install with the entry `npm install protractor -g` if you haven't already.
-
-You'll also need Java in order to be able to run the tests.
-
-For Mac users there is a know issue with Protractor and Java. Currently the recommendation is to install Java via [Brew](http://brew.sh/).
-
-`brew update`
-`brew cask install java`
-
 ## Structure
 
-- `/public/components` contains a sub-directory for each component, holding source JS, styles and views.
-- `/public/dist` is the directory for compiled JS and CSS
+- `/public/components` contains a sub-directory for each component, holding source JS and views.
+- `/public/style` contains a sub-directory for each style component, folder scss for the source styling and css for the compiled version.
+- `/public/dist` is the directory for webpack compiled JS and CSS
+- `/routes` API and models definition
 - `/.config/.env` stores global variables for the server
+- `/.config/.db` Database connection params
 
 ## Scripts
 
@@ -56,6 +49,9 @@ For Mac users there is a know issue with Protractor and Java. Currently the reco
 | `npm run build`       | Compile JS and CSS to `/public/dist/bundle`.         |
 | `npm run build:watch` | Build, rebuilding on source file changes.            |
 | `npm run start:dev`   | Start the server, restarting on source file changes. |
+| `npm run start:prod`  | Start the server using forever in production mode    |
+| `npm run stop:prod`   | Stop the production server                           |
+| `npm run restart:prod`| Restart the production server                           |
 | `npm start`           | Start the server.                                    |
 | `npm test`            | Start Karma testing watching for file changes.       |
 
